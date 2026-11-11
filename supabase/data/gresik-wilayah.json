@@ -1,0 +1,3383 @@
+{
+    "regency":  {
+                    "id":  252,
+                    "code":  "35.25",
+                    "name":  "Kabupaten Gresik"
+                },
+    "summary":  {
+                    "subdistricts_count":  18,
+                    "desa_count":  330,
+                    "kelurahan_count":  26,
+                    "total_villages":  356
+                },
+    "subdistricts":  [
+                         {
+                             "code":  "35.25.01",
+                             "name":  "Dukun",
+                             "slug":  "dukun",
+                             "sort_order":  1,
+                             "desa_count":  26,
+                             "kelurahan_count":  0,
+                             "total_villages":  26
+                         },
+                         {
+                             "code":  "35.25.02",
+                             "name":  "Balongpanggang",
+                             "slug":  "balongpanggang",
+                             "sort_order":  2,
+                             "desa_count":  25,
+                             "kelurahan_count":  0,
+                             "total_villages":  25
+                         },
+                         {
+                             "code":  "35.25.03",
+                             "name":  "Panceng",
+                             "slug":  "panceng",
+                             "sort_order":  3,
+                             "desa_count":  14,
+                             "kelurahan_count":  0,
+                             "total_villages":  14
+                         },
+                         {
+                             "code":  "35.25.04",
+                             "name":  "Benjeng",
+                             "slug":  "benjeng",
+                             "sort_order":  4,
+                             "desa_count":  23,
+                             "kelurahan_count":  0,
+                             "total_villages":  23
+                         },
+                         {
+                             "code":  "35.25.05",
+                             "name":  "Duduksampeyan",
+                             "slug":  "duduksampeyan",
+                             "sort_order":  5,
+                             "desa_count":  23,
+                             "kelurahan_count":  0,
+                             "total_villages":  23
+                         },
+                         {
+                             "code":  "35.25.06",
+                             "name":  "Wringinanom",
+                             "slug":  "wringinanom",
+                             "sort_order":  6,
+                             "desa_count":  16,
+                             "kelurahan_count":  0,
+                             "total_villages":  16
+                         },
+                         {
+                             "code":  "35.25.07",
+                             "name":  "Ujungpangkah",
+                             "slug":  "ujungpangkah",
+                             "sort_order":  7,
+                             "desa_count":  13,
+                             "kelurahan_count":  0,
+                             "total_villages":  13
+                         },
+                         {
+                             "code":  "35.25.08",
+                             "name":  "Kedamean",
+                             "slug":  "kedamean",
+                             "sort_order":  8,
+                             "desa_count":  15,
+                             "kelurahan_count":  0,
+                             "total_villages":  15
+                         },
+                         {
+                             "code":  "35.25.09",
+                             "name":  "Sidayu",
+                             "slug":  "sidayu",
+                             "sort_order":  9,
+                             "desa_count":  21,
+                             "kelurahan_count":  0,
+                             "total_villages":  21
+                         },
+                         {
+                             "code":  "35.25.10",
+                             "name":  "Manyar",
+                             "slug":  "manyar",
+                             "sort_order":  10,
+                             "desa_count":  23,
+                             "kelurahan_count":  0,
+                             "total_villages":  23
+                         },
+                         {
+                             "code":  "35.25.11",
+                             "name":  "Cerme",
+                             "slug":  "cerme",
+                             "sort_order":  11,
+                             "desa_count":  25,
+                             "kelurahan_count":  0,
+                             "total_villages":  25
+                         },
+                         {
+                             "code":  "35.25.12",
+                             "name":  "Bungah",
+                             "slug":  "bungah",
+                             "sort_order":  12,
+                             "desa_count":  22,
+                             "kelurahan_count":  0,
+                             "total_villages":  22
+                         },
+                         {
+                             "code":  "35.25.13",
+                             "name":  "Menganti",
+                             "slug":  "menganti",
+                             "sort_order":  13,
+                             "desa_count":  22,
+                             "kelurahan_count":  0,
+                             "total_villages":  22
+                         },
+                         {
+                             "code":  "35.25.14",
+                             "name":  "Kebomas",
+                             "slug":  "kebomas",
+                             "sort_order":  14,
+                             "desa_count":  11,
+                             "kelurahan_count":  10,
+                             "total_villages":  21
+                         },
+                         {
+                             "code":  "35.25.15",
+                             "name":  "Driyorejo",
+                             "slug":  "driyorejo",
+                             "sort_order":  15,
+                             "desa_count":  16,
+                             "kelurahan_count":  0,
+                             "total_villages":  16
+                         },
+                         {
+                             "code":  "35.25.16",
+                             "name":  "Gresik",
+                             "slug":  "gresik",
+                             "sort_order":  16,
+                             "desa_count":  5,
+                             "kelurahan_count":  16,
+                             "total_villages":  21
+                         },
+                         {
+                             "code":  "35.25.17",
+                             "name":  "Sangkapura",
+                             "slug":  "sangkapura",
+                             "sort_order":  17,
+                             "desa_count":  17,
+                             "kelurahan_count":  0,
+                             "total_villages":  17
+                         },
+                         {
+                             "code":  "35.25.18",
+                             "name":  "Tambak",
+                             "slug":  "tambak",
+                             "sort_order":  18,
+                             "desa_count":  13,
+                             "kelurahan_count":  0,
+                             "total_villages":  13
+                         }
+                     ],
+    "villages":  [
+                     {
+                         "code":  "35.25.01.2001",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Sawo",
+                         "slug":  "sawo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sawo"
+                     },
+                     {
+                         "code":  "35.25.01.2002",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Karangcangkring",
+                         "slug":  "karangcangkring",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangcangkring"
+                     },
+                     {
+                         "code":  "35.25.01.2003",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Gedongkedo\u0027an",
+                         "slug":  "gedongkedoan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gedongkedo\u0027an"
+                     },
+                     {
+                         "code":  "35.25.01.2004",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Bulangan",
+                         "slug":  "bulangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bulangan"
+                     },
+                     {
+                         "code":  "35.25.01.2005",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Wonokerto",
+                         "slug":  "wonokerto",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wonokerto"
+                     },
+                     {
+                         "code":  "35.25.01.2006",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Bangeran",
+                         "slug":  "bangeran",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bangeran"
+                     },
+                     {
+                         "code":  "35.25.01.2007",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Lowayu",
+                         "slug":  "lowayu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lowayu"
+                     },
+                     {
+                         "code":  "35.25.01.2008",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Petiyin Tunggal",
+                         "slug":  "petiyin-tunggal",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Petiyin Tunggal"
+                     },
+                     {
+                         "code":  "35.25.01.2009",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Tirem Enggal",
+                         "slug":  "tirem-enggal",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tirem Enggal"
+                     },
+                     {
+                         "code":  "35.25.01.2010",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Tebuwung",
+                         "slug":  "tebuwung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tebuwung"
+                     },
+                     {
+                         "code":  "35.25.01.2011",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Dukuh Kembar",
+                         "slug":  "dukuh-kembar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dukuh Kembar"
+                     },
+                     {
+                         "code":  "35.25.01.2012",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Madumulyorejo",
+                         "slug":  "madumulyorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Madumulyorejo"
+                     },
+                     {
+                         "code":  "35.25.01.2013",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Mentaras",
+                         "slug":  "mentaras",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mentaras"
+                     },
+                     {
+                         "code":  "35.25.01.2014",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Baron",
+                         "slug":  "baron",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Baron"
+                     },
+                     {
+                         "code":  "35.25.01.2015",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Jrebeng",
+                         "slug":  "jrebeng",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Jrebeng"
+                     },
+                     {
+                         "code":  "35.25.01.2016",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Mojopetung",
+                         "slug":  "mojopetung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojopetung"
+                     },
+                     {
+                         "code":  "35.25.01.2017",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Sekargadung",
+                         "slug":  "sekargadung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sekargadung"
+                     },
+                     {
+                         "code":  "35.25.01.2018",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Ima\u0027an",
+                         "slug":  "imaan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ima\u0027an"
+                     },
+                     {
+                         "code":  "35.25.01.2019",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Babakbawo",
+                         "slug":  "babakbawo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Babakbawo"
+                     },
+                     {
+                         "code":  "35.25.01.2020",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Babaksari",
+                         "slug":  "babaksari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Babaksari"
+                     },
+                     {
+                         "code":  "35.25.01.2021",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Sambogunung",
+                         "slug":  "sambogunung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sambogunung"
+                     },
+                     {
+                         "code":  "35.25.01.2022",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Sembungan Kidul",
+                         "slug":  "sembungan-kidul",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sembungan Kidul"
+                     },
+                     {
+                         "code":  "35.25.01.2023",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Sembunganyar",
+                         "slug":  "sembunganyar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sembunganyar"
+                     },
+                     {
+                         "code":  "35.25.01.2024",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Kalirejo",
+                         "slug":  "kalirejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kalirejo"
+                     },
+                     {
+                         "code":  "35.25.01.2025",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Padang Bandung",
+                         "slug":  "padang-bandung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Padang Bandung"
+                     },
+                     {
+                         "code":  "35.25.01.2026",
+                         "subdistrict_code":  "35.25.01",
+                         "subdistrict_slug":  "dukun",
+                         "name":  "Dukunanyar",
+                         "slug":  "dukunanyar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dukunanyar"
+                     },
+                     {
+                         "code":  "35.25.02.2001",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Jombangdelik",
+                         "slug":  "jombangdelik",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Jombangdelik"
+                     },
+                     {
+                         "code":  "35.25.02.2002",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Brangkal",
+                         "slug":  "brangkal",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Brangkal"
+                     },
+                     {
+                         "code":  "35.25.02.2003",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Ngampel",
+                         "slug":  "ngampel",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngampel"
+                     },
+                     {
+                         "code":  "35.25.02.2004",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Bandungsekaran",
+                         "slug":  "bandungsekaran",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bandungsekaran"
+                     },
+                     {
+                         "code":  "35.25.02.2005",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Babatan",
+                         "slug":  "babatan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Babatan"
+                     },
+                     {
+                         "code":  "35.25.02.2006",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Tanahlandean",
+                         "slug":  "tanahlandean",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanahlandean"
+                     },
+                     {
+                         "code":  "35.25.02.2007",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Kedungsumber",
+                         "slug":  "kedungsumber",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedungsumber"
+                     },
+                     {
+                         "code":  "35.25.02.2008",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Wonorejo",
+                         "slug":  "wonorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wonorejo"
+                     },
+                     {
+                         "code":  "35.25.02.2009",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Dapet",
+                         "slug":  "dapet",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dapet"
+                     },
+                     {
+                         "code":  "35.25.02.2010",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Dohoagung",
+                         "slug":  "dohoagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dohoagung"
+                     },
+                     {
+                         "code":  "35.25.02.2011",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Mojogede",
+                         "slug":  "mojogede",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojogede"
+                     },
+                     {
+                         "code":  "35.25.02.2012",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Tenggor",
+                         "slug":  "tenggor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tenggor"
+                     },
+                     {
+                         "code":  "35.25.02.2013",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Wahas",
+                         "slug":  "wahas",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wahas"
+                     },
+                     {
+                         "code":  "35.25.02.2014",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Kedungpring",
+                         "slug":  "kedungpring",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedungpring"
+                     },
+                     {
+                         "code":  "35.25.02.2015",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Sekarputih",
+                         "slug":  "sekarputih",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sekarputih"
+                     },
+                     {
+                         "code":  "35.25.02.2016",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Pinggir",
+                         "slug":  "pinggir",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pinggir"
+                     },
+                     {
+                         "code":  "35.25.02.2017",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Karangsemanding",
+                         "slug":  "karangsemanding",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangsemanding"
+                     },
+                     {
+                         "code":  "35.25.02.2018",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Pacuh",
+                         "slug":  "pacuh",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pacuh"
+                     },
+                     {
+                         "code":  "35.25.02.2019",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Balongpanggang",
+                         "slug":  "balongpanggang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Balongpanggang"
+                     },
+                     {
+                         "code":  "35.25.02.2020",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Wotansari",
+                         "slug":  "wotansari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wotansari"
+                     },
+                     {
+                         "code":  "35.25.02.2021",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Pucung",
+                         "slug":  "pucung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pucung"
+                     },
+                     {
+                         "code":  "35.25.02.2022",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Klotok",
+                         "slug":  "klotok",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Klotok"
+                     },
+                     {
+                         "code":  "35.25.02.2023",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Ngasin",
+                         "slug":  "ngasin",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngasin"
+                     },
+                     {
+                         "code":  "35.25.02.2024",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Banjaragung",
+                         "slug":  "banjaragung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banjaragung"
+                     },
+                     {
+                         "code":  "35.25.02.2025",
+                         "subdistrict_code":  "35.25.02",
+                         "subdistrict_slug":  "balongpanggang",
+                         "name":  "Ganggang",
+                         "slug":  "ganggang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ganggang"
+                     },
+                     {
+                         "code":  "35.25.03.2001",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Pantenan",
+                         "slug":  "pantenan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pantenan"
+                     },
+                     {
+                         "code":  "35.25.03.2002",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Sumurber",
+                         "slug":  "sumurber",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumurber"
+                     },
+                     {
+                         "code":  "35.25.03.2003",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Siwalan",
+                         "slug":  "siwalan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Siwalan"
+                     },
+                     {
+                         "code":  "35.25.03.2004",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Ketanen",
+                         "slug":  "ketanen",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ketanen"
+                     },
+                     {
+                         "code":  "35.25.03.2005",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Banyutengah",
+                         "slug":  "banyutengah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banyutengah"
+                     },
+                     {
+                         "code":  "35.25.03.2006",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Serah",
+                         "slug":  "serah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Serah"
+                     },
+                     {
+                         "code":  "35.25.03.2007",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Surowiti",
+                         "slug":  "surowiti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Surowiti"
+                     },
+                     {
+                         "code":  "35.25.03.2008",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Prupuh",
+                         "slug":  "prupuh",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Prupuh"
+                     },
+                     {
+                         "code":  "35.25.03.2009",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Campurejo",
+                         "slug":  "campurejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Campurejo"
+                     },
+                     {
+                         "code":  "35.25.03.2010",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Sukodono",
+                         "slug":  "sukodono",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukodono"
+                     },
+                     {
+                         "code":  "35.25.03.2011",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Dalegan",
+                         "slug":  "dalegan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dalegan"
+                     },
+                     {
+                         "code":  "35.25.03.2012",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Petung",
+                         "slug":  "petung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Petung"
+                     },
+                     {
+                         "code":  "35.25.03.2013",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Wotan",
+                         "slug":  "wotan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wotan"
+                     },
+                     {
+                         "code":  "35.25.03.2014",
+                         "subdistrict_code":  "35.25.03",
+                         "subdistrict_slug":  "panceng",
+                         "name":  "Doudo",
+                         "slug":  "doudo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Doudo"
+                     },
+                     {
+                         "code":  "35.25.04.2001",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Karangankidul",
+                         "slug":  "karangankidul",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangankidul"
+                     },
+                     {
+                         "code":  "35.25.04.2002",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Sedapur Klagen",
+                         "slug":  "sedapur-klagen",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sedapur Klagen"
+                     },
+                     {
+                         "code":  "35.25.04.2003",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Deliksumber",
+                         "slug":  "deliksumber",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Deliksumber"
+                     },
+                     {
+                         "code":  "35.25.04.2004",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Lundo",
+                         "slug":  "lundo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lundo"
+                     },
+                     {
+                         "code":  "35.25.04.2005",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Kalipadang",
+                         "slug":  "kalipadang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kalipadang"
+                     },
+                     {
+                         "code":  "35.25.04.2006",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Kedungrukem",
+                         "slug":  "kedungrukem",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedungrukem"
+                     },
+                     {
+                         "code":  "35.25.04.2007",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Balungtunjung",
+                         "slug":  "balungtunjung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Balungtunjung"
+                     },
+                     {
+                         "code":  "35.25.04.2008",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Munggugebang",
+                         "slug":  "munggugebang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Munggugebang"
+                     },
+                     {
+                         "code":  "35.25.04.2009",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Balongmojo",
+                         "slug":  "balongmojo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Balongmojo"
+                     },
+                     {
+                         "code":  "35.25.04.2010",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Bulangkulon",
+                         "slug":  "bulangkulon",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bulangkulon"
+                     },
+                     {
+                         "code":  "35.25.04.2011",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Banter",
+                         "slug":  "banter",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banter"
+                     },
+                     {
+                         "code":  "35.25.04.2012",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Sirnoboyo",
+                         "slug":  "sirnoboyo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sirnoboyo"
+                     },
+                     {
+                         "code":  "35.25.04.2013",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Munggugianti",
+                         "slug":  "munggugianti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Munggugianti"
+                     },
+                     {
+                         "code":  "35.25.04.2014",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Klampok",
+                         "slug":  "klampok",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Klampok"
+                     },
+                     {
+                         "code":  "35.25.04.2015",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Metatu",
+                         "slug":  "metatu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Metatu"
+                     },
+                     {
+                         "code":  "35.25.04.2016",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Bengkelolor",
+                         "slug":  "bengkelolor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bengkelolor"
+                     },
+                     {
+                         "code":  "35.25.04.2017",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Gurangploso",
+                         "slug":  "gurangploso",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gurangploso"
+                     },
+                     {
+                         "code":  "35.25.04.2018",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Kedungsekar",
+                         "slug":  "kedungsekar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedungsekar"
+                     },
+                     {
+                         "code":  "35.25.04.2019",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Dermo",
+                         "slug":  "dermo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dermo"
+                     },
+                     {
+                         "code":  "35.25.04.2020",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Jogodalu",
+                         "slug":  "jogodalu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Jogodalu"
+                     },
+                     {
+                         "code":  "35.25.04.2021",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Jatirembe",
+                         "slug":  "jatirembe",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Jatirembe"
+                     },
+                     {
+                         "code":  "35.25.04.2022",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Bulurejo",
+                         "slug":  "bulurejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bulurejo"
+                     },
+                     {
+                         "code":  "35.25.04.2023",
+                         "subdistrict_code":  "35.25.04",
+                         "subdistrict_slug":  "benjeng",
+                         "name":  "Punduttrate",
+                         "slug":  "punduttrate",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Punduttrate"
+                     },
+                     {
+                         "code":  "35.25.05.2001",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Panjunan",
+                         "slug":  "panjunan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Panjunan"
+                     },
+                     {
+                         "code":  "35.25.05.2002",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Kandangan",
+                         "slug":  "kandangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kandangan"
+                     },
+                     {
+                         "code":  "35.25.05.2003",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Pandanan",
+                         "slug":  "pandanan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pandanan"
+                     },
+                     {
+                         "code":  "35.25.05.2004",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Tumapel",
+                         "slug":  "tumapel",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tumapel"
+                     },
+                     {
+                         "code":  "35.25.05.2005",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Tambakrejo",
+                         "slug":  "tambakrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tambakrejo"
+                     },
+                     {
+                         "code":  "35.25.05.2006",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Glanggang",
+                         "slug":  "glanggang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Glanggang"
+                     },
+                     {
+                         "code":  "35.25.05.2007",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Palebon",
+                         "slug":  "palebon",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Palebon"
+                     },
+                     {
+                         "code":  "35.25.05.2008",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Setrohadi",
+                         "slug":  "setrohadi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Setrohadi"
+                     },
+                     {
+                         "code":  "35.25.05.2009",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Bendungan",
+                         "slug":  "bendungan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bendungan"
+                     },
+                     {
+                         "code":  "35.25.05.2010",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Sumengko",
+                         "slug":  "sumengko",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumengko"
+                     },
+                     {
+                         "code":  "35.25.05.2011",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Wadak Lor",
+                         "slug":  "wadak-lor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wadak Lor"
+                     },
+                     {
+                         "code":  "35.25.05.2012",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Wadak Kidul",
+                         "slug":  "wadak-kidul",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wadak Kidul"
+                     },
+                     {
+                         "code":  "35.25.05.2013",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Petisbenem",
+                         "slug":  "petisbenem",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Petisbenem"
+                     },
+                     {
+                         "code":  "35.25.05.2014",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Duduksampeyan",
+                         "slug":  "duduksampeyan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Duduksampeyan"
+                     },
+                     {
+                         "code":  "35.25.05.2015",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Gredek",
+                         "slug":  "gredek",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gredek"
+                     },
+                     {
+                         "code":  "35.25.05.2016",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Kramat",
+                         "slug":  "kramat",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kramat"
+                     },
+                     {
+                         "code":  "35.25.05.2017",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Sumari",
+                         "slug":  "sumari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumari"
+                     },
+                     {
+                         "code":  "35.25.05.2018",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Samirplapan",
+                         "slug":  "samirplapan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Samirplapan"
+                     },
+                     {
+                         "code":  "35.25.05.2019",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Kawistowindu",
+                         "slug":  "kawistowindu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kawistowindu"
+                     },
+                     {
+                         "code":  "35.25.05.2020",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Kemudi",
+                         "slug":  "kemudi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kemudi"
+                     },
+                     {
+                         "code":  "35.25.05.2021",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Tebaloan",
+                         "slug":  "tebaloan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tebaloan"
+                     },
+                     {
+                         "code":  "35.25.05.2022",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Tirem",
+                         "slug":  "tirem",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tirem"
+                     },
+                     {
+                         "code":  "35.25.05.2023",
+                         "subdistrict_code":  "35.25.05",
+                         "subdistrict_slug":  "duduksampeyan",
+                         "name":  "Ambeng-ambeng Watangrejo",
+                         "slug":  "ambeng-ambeng-watangrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ambeng-ambeng Watangrejo"
+                     },
+                     {
+                         "code":  "35.25.06.2001",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Kepuhklagen",
+                         "slug":  "kepuhklagen",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kepuhklagen"
+                     },
+                     {
+                         "code":  "35.25.06.2002",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sumbergede",
+                         "slug":  "sumbergede",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumbergede"
+                     },
+                     {
+                         "code":  "35.25.06.2003",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Mondoluku",
+                         "slug":  "mondoluku",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mondoluku"
+                     },
+                     {
+                         "code":  "35.25.06.2004",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Kedunganyar",
+                         "slug":  "kedunganyar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedunganyar"
+                     },
+                     {
+                         "code":  "35.25.06.2005",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sumberwaru",
+                         "slug":  "sumberwaru",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumberwaru"
+                     },
+                     {
+                         "code":  "35.25.06.2006",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Kesambenkulon",
+                         "slug":  "kesambenkulon",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kesambenkulon"
+                     },
+                     {
+                         "code":  "35.25.06.2007",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sumberame",
+                         "slug":  "sumberame",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumberame"
+                     },
+                     {
+                         "code":  "35.25.06.2008",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sembung",
+                         "slug":  "sembung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sembung"
+                     },
+                     {
+                         "code":  "35.25.06.2009",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sooko",
+                         "slug":  "sooko",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sooko"
+                     },
+                     {
+                         "code":  "35.25.06.2010",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Wringinanom",
+                         "slug":  "wringinanom",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wringinanom"
+                     },
+                     {
+                         "code":  "35.25.06.2011",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Pedagangan",
+                         "slug":  "pedagangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pedagangan"
+                     },
+                     {
+                         "code":  "35.25.06.2012",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Lebanisuko",
+                         "slug":  "lebanisuko",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lebanisuko"
+                     },
+                     {
+                         "code":  "35.25.06.2013",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Lebaniwaras",
+                         "slug":  "lebaniwaras",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lebaniwaras"
+                     },
+                     {
+                         "code":  "35.25.06.2014",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Watestanjung",
+                         "slug":  "watestanjung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Watestanjung"
+                     },
+                     {
+                         "code":  "35.25.06.2015",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Sumengko",
+                         "slug":  "sumengko",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumengko"
+                     },
+                     {
+                         "code":  "35.25.06.2016",
+                         "subdistrict_code":  "35.25.06",
+                         "subdistrict_slug":  "wringinanom",
+                         "name":  "Pasinanlemahputih",
+                         "slug":  "pasinanlemahputih",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pasinanlemahputih"
+                     },
+                     {
+                         "code":  "35.25.07.2001",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Pangkahkulon",
+                         "slug":  "pangkahkulon",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pangkahkulon"
+                     },
+                     {
+                         "code":  "35.25.07.2002",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Cangaan",
+                         "slug":  "cangaan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cangaan"
+                     },
+                     {
+                         "code":  "35.25.07.2003",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Ngemboh",
+                         "slug":  "ngemboh",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngemboh"
+                     },
+                     {
+                         "code":  "35.25.07.2004",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Sekapuk",
+                         "slug":  "sekapuk",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sekapuk"
+                     },
+                     {
+                         "code":  "35.25.07.2005",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Gosari",
+                         "slug":  "gosari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gosari"
+                     },
+                     {
+                         "code":  "35.25.07.2006",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Banyuurip",
+                         "slug":  "banyuurip",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banyuurip"
+                     },
+                     {
+                         "code":  "35.25.07.2007",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Kebonagung",
+                         "slug":  "kebonagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kebonagung"
+                     },
+                     {
+                         "code":  "35.25.07.2008",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Pangkahwetan",
+                         "slug":  "pangkahwetan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pangkahwetan"
+                     },
+                     {
+                         "code":  "35.25.07.2009",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Bolo",
+                         "slug":  "bolo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bolo"
+                     },
+                     {
+                         "code":  "35.25.07.2010",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Glatik",
+                         "slug":  "glatik",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Glatik"
+                     },
+                     {
+                         "code":  "35.25.07.2011",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Karangrejo",
+                         "slug":  "karangrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangrejo"
+                     },
+                     {
+                         "code":  "35.25.07.2012",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Ketapanglor",
+                         "slug":  "ketapanglor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ketapanglor"
+                     },
+                     {
+                         "code":  "35.25.07.2013",
+                         "subdistrict_code":  "35.25.07",
+                         "subdistrict_slug":  "ujungpangkah",
+                         "name":  "Tanjangawan",
+                         "slug":  "tanjangawan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanjangawan"
+                     },
+                     {
+                         "code":  "35.25.08.2001",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Mojowuku",
+                         "slug":  "mojowuku",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojowuku"
+                     },
+                     {
+                         "code":  "35.25.08.2002",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Glindah",
+                         "slug":  "glindah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Glindah"
+                     },
+                     {
+                         "code":  "35.25.08.2003",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Sidoraharjo",
+                         "slug":  "sidoraharjo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidoraharjo"
+                     },
+                     {
+                         "code":  "35.25.08.2004",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Tulung",
+                         "slug":  "tulung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tulung"
+                     },
+                     {
+                         "code":  "35.25.08.2005",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Cermen",
+                         "slug":  "cermen",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cermen"
+                     },
+                     {
+                         "code":  "35.25.08.2006",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Lampah",
+                         "slug":  "lampah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lampah"
+                     },
+                     {
+                         "code":  "35.25.08.2007",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Slempit",
+                         "slug":  "slempit",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Slempit"
+                     },
+                     {
+                         "code":  "35.25.08.2008",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Turirejo",
+                         "slug":  "turirejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Turirejo"
+                     },
+                     {
+                         "code":  "35.25.08.2009",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Belahanrejo",
+                         "slug":  "belahanrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Belahanrejo"
+                     },
+                     {
+                         "code":  "35.25.08.2010",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Menunggal",
+                         "slug":  "menunggal",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Menunggal"
+                     },
+                     {
+                         "code":  "35.25.08.2011",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Tanjung",
+                         "slug":  "tanjung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanjung"
+                     },
+                     {
+                         "code":  "35.25.08.2012",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Katimoho",
+                         "slug":  "katimoho",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Katimoho"
+                     },
+                     {
+                         "code":  "35.25.08.2013",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Banyuurip",
+                         "slug":  "banyuurip",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banyuurip"
+                     },
+                     {
+                         "code":  "35.25.08.2014",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Kedamean",
+                         "slug":  "kedamean",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedamean"
+                     },
+                     {
+                         "code":  "35.25.08.2015",
+                         "subdistrict_code":  "35.25.08",
+                         "subdistrict_slug":  "kedamean",
+                         "name":  "Ngepung",
+                         "slug":  "ngepung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngepung"
+                     },
+                     {
+                         "code":  "35.25.09.2001",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Sukorejo",
+                         "slug":  "sukorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukorejo"
+                     },
+                     {
+                         "code":  "35.25.09.2002",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Gedangan",
+                         "slug":  "gedangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gedangan"
+                     },
+                     {
+                         "code":  "35.25.09.2003",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Wadeng",
+                         "slug":  "wadeng",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wadeng"
+                     },
+                     {
+                         "code":  "35.25.09.2004",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Lasem",
+                         "slug":  "lasem",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lasem"
+                     },
+                     {
+                         "code":  "35.25.09.2005",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Kertosono",
+                         "slug":  "kertosono",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kertosono"
+                     },
+                     {
+                         "code":  "35.25.09.2006",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Sambipondok",
+                         "slug":  "sambipondok",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sambipondok"
+                     },
+                     {
+                         "code":  "35.25.09.2007",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Raci Kulon",
+                         "slug":  "raci-kulon",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Raci Kulon"
+                     },
+                     {
+                         "code":  "35.25.09.2008",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Golokan",
+                         "slug":  "golokan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Golokan"
+                     },
+                     {
+                         "code":  "35.25.09.2009",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Raci Tengah",
+                         "slug":  "raci-tengah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Raci Tengah"
+                     },
+                     {
+                         "code":  "35.25.09.2010",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Purwodadi",
+                         "slug":  "purwodadi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Purwodadi"
+                     },
+                     {
+                         "code":  "35.25.09.2011",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Sidomulyo",
+                         "slug":  "sidomulyo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidomulyo"
+                     },
+                     {
+                         "code":  "35.25.09.2012",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Srowo",
+                         "slug":  "srowo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Srowo"
+                     },
+                     {
+                         "code":  "35.25.09.2013",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Kauman",
+                         "slug":  "kauman",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kauman"
+                     },
+                     {
+                         "code":  "35.25.09.2014",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Bunderan",
+                         "slug":  "bunderan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bunderan"
+                     },
+                     {
+                         "code":  "35.25.09.2015",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Asempapak",
+                         "slug":  "asempapak",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Asempapak"
+                     },
+                     {
+                         "code":  "35.25.09.2016",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Mriyunan",
+                         "slug":  "mriyunan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mriyunan"
+                     },
+                     {
+                         "code":  "35.25.09.2017",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Mojoasem",
+                         "slug":  "mojoasem",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojoasem"
+                     },
+                     {
+                         "code":  "35.25.09.2018",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Sedagaran",
+                         "slug":  "sedagaran",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sedagaran"
+                     },
+                     {
+                         "code":  "35.25.09.2019",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Ngawen",
+                         "slug":  "ngawen",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngawen"
+                     },
+                     {
+                         "code":  "35.25.09.2020",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Pengulu",
+                         "slug":  "pengulu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pengulu"
+                     },
+                     {
+                         "code":  "35.25.09.2021",
+                         "subdistrict_code":  "35.25.09",
+                         "subdistrict_slug":  "sidayu",
+                         "name":  "Randuboto",
+                         "slug":  "randuboto",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Randuboto"
+                     },
+                     {
+                         "code":  "35.25.10.2001",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Tanggulrejo",
+                         "slug":  "tanggulrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanggulrejo"
+                     },
+                     {
+                         "code":  "35.25.10.2002",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Morobakung",
+                         "slug":  "morobakung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Morobakung"
+                     },
+                     {
+                         "code":  "35.25.10.2003",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Pejangganan",
+                         "slug":  "pejangganan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pejangganan"
+                     },
+                     {
+                         "code":  "35.25.10.2004",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Gumeno",
+                         "slug":  "gumeno",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gumeno"
+                     },
+                     {
+                         "code":  "35.25.10.2005",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Sumberejo",
+                         "slug":  "sumberejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumberejo"
+                     },
+                     {
+                         "code":  "35.25.10.2006",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Ngampel",
+                         "slug":  "ngampel",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngampel"
+                     },
+                     {
+                         "code":  "35.25.10.2007",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Betoyokauman",
+                         "slug":  "betoyokauman",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Betoyokauman"
+                     },
+                     {
+                         "code":  "35.25.10.2008",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Sembayat",
+                         "slug":  "sembayat",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sembayat"
+                     },
+                     {
+                         "code":  "35.25.10.2009",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Betoyoguci",
+                         "slug":  "betoyoguci",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Betoyoguci"
+                     },
+                     {
+                         "code":  "35.25.10.2010",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Leran",
+                         "slug":  "leran",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Leran"
+                     },
+                     {
+                         "code":  "35.25.10.2011",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Tebalo",
+                         "slug":  "tebalo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tebalo"
+                     },
+                     {
+                         "code":  "35.25.10.2012",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Karangrejo",
+                         "slug":  "karangrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangrejo"
+                     },
+                     {
+                         "code":  "35.25.10.2013",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Banyuwangi",
+                         "slug":  "banyuwangi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banyuwangi"
+                     },
+                     {
+                         "code":  "35.25.10.2014",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Manyarejo",
+                         "slug":  "manyarejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Manyarejo"
+                     },
+                     {
+                         "code":  "35.25.10.2015",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Manyar Sidomukti",
+                         "slug":  "manyar-sidomukti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Manyar Sidomukti"
+                     },
+                     {
+                         "code":  "35.25.10.2016",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Manyar Sidorukun",
+                         "slug":  "manyar-sidorukun",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Manyar Sidorukun"
+                     },
+                     {
+                         "code":  "35.25.10.2017",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Banjarsari",
+                         "slug":  "banjarsari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banjarsari"
+                     },
+                     {
+                         "code":  "35.25.10.2018",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Suci",
+                         "slug":  "suci",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Suci"
+                     },
+                     {
+                         "code":  "35.25.10.2019",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Paganden",
+                         "slug":  "paganden",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Paganden"
+                     },
+                     {
+                         "code":  "35.25.10.2020",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Pongangan",
+                         "slug":  "pongangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pongangan"
+                     },
+                     {
+                         "code":  "35.25.10.2021",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Sukomulyo",
+                         "slug":  "sukomulyo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukomulyo"
+                     },
+                     {
+                         "code":  "35.25.10.2022",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Yosowilangun",
+                         "slug":  "yosowilangun",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Yosowilangun"
+                     },
+                     {
+                         "code":  "35.25.10.2023",
+                         "subdistrict_code":  "35.25.10",
+                         "subdistrict_slug":  "manyar",
+                         "name":  "Roomo",
+                         "slug":  "roomo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Roomo"
+                     },
+                     {
+                         "code":  "35.25.11.2001",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Dadapkuning",
+                         "slug":  "dadapkuning",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dadapkuning"
+                     },
+                     {
+                         "code":  "35.25.11.2002",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Lengkong",
+                         "slug":  "lengkong",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lengkong"
+                     },
+                     {
+                         "code":  "35.25.11.2003",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Kandangan",
+                         "slug":  "kandangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kandangan"
+                     },
+                     {
+                         "code":  "35.25.11.2004",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Dooro",
+                         "slug":  "dooro",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dooro"
+                     },
+                     {
+                         "code":  "35.25.11.2005",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Dampaan",
+                         "slug":  "dampaan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dampaan"
+                     },
+                     {
+                         "code":  "35.25.11.2006",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Ngembung",
+                         "slug":  "ngembung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngembung"
+                     },
+                     {
+                         "code":  "35.25.11.2007",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Sukoanyar",
+                         "slug":  "sukoanyar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukoanyar"
+                     },
+                     {
+                         "code":  "35.25.11.2008",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Gedangkulud",
+                         "slug":  "gedangkulud",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gedangkulud"
+                     },
+                     {
+                         "code":  "35.25.11.2009",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Wedani",
+                         "slug":  "wedani",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Wedani"
+                     },
+                     {
+                         "code":  "35.25.11.2010",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Dungus",
+                         "slug":  "dungus",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dungus"
+                     },
+                     {
+                         "code":  "35.25.11.2011",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Guranganyar",
+                         "slug":  "guranganyar",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Guranganyar"
+                     },
+                     {
+                         "code":  "35.25.11.2012",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Kambingan",
+                         "slug":  "kambingan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kambingan"
+                     },
+                     {
+                         "code":  "35.25.11.2013",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Morowudi",
+                         "slug":  "morowudi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Morowudi"
+                     },
+                     {
+                         "code":  "35.25.11.2014",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Betiting",
+                         "slug":  "betiting",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Betiting"
+                     },
+                     {
+                         "code":  "35.25.11.2015",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Ngabetan",
+                         "slug":  "ngabetan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Ngabetan"
+                     },
+                     {
+                         "code":  "35.25.11.2016",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Padeg",
+                         "slug":  "padeg",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Padeg"
+                     },
+                     {
+                         "code":  "35.25.11.2017",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Iker-iker Geger",
+                         "slug":  "iker-iker-geger",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Iker-iker Geger"
+                     },
+                     {
+                         "code":  "35.25.11.2018",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Semampir",
+                         "slug":  "semampir",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Semampir"
+                     },
+                     {
+                         "code":  "35.25.11.2019",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Cagakagung",
+                         "slug":  "cagakagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cagakagung"
+                     },
+                     {
+                         "code":  "35.25.11.2020",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Cerme Kidul",
+                         "slug":  "cerme-kidul",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cerme Kidul"
+                     },
+                     {
+                         "code":  "35.25.11.2021",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Cerme Lor",
+                         "slug":  "cerme-lor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cerme Lor"
+                     },
+                     {
+                         "code":  "35.25.11.2022",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Pandu",
+                         "slug":  "pandu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pandu"
+                     },
+                     {
+                         "code":  "35.25.11.2023",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Banjarsari",
+                         "slug":  "banjarsari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banjarsari"
+                     },
+                     {
+                         "code":  "35.25.11.2024",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Tambakberas",
+                         "slug":  "tambakberas",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tambakberas"
+                     },
+                     {
+                         "code":  "35.25.11.2025",
+                         "subdistrict_code":  "35.25.11",
+                         "subdistrict_slug":  "cerme",
+                         "name":  "Jono",
+                         "slug":  "jono",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Jono"
+                     },
+                     {
+                         "code":  "35.25.12.2001",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sidomukti",
+                         "slug":  "sidomukti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidomukti"
+                     },
+                     {
+                         "code":  "35.25.12.2002",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Mojopurogede",
+                         "slug":  "mojopurogede",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojopurogede"
+                     },
+                     {
+                         "code":  "35.25.12.2003",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Mojopurowetan",
+                         "slug":  "mojopurowetan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojopurowetan"
+                     },
+                     {
+                         "code":  "35.25.12.2004",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Melirang",
+                         "slug":  "melirang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Melirang"
+                     },
+                     {
+                         "code":  "35.25.12.2005",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sidorejo",
+                         "slug":  "sidorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidorejo"
+                     },
+                     {
+                         "code":  "35.25.12.2006",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Raciwetan",
+                         "slug":  "raciwetan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Raciwetan"
+                     },
+                     {
+                         "code":  "35.25.12.2007",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Masangan",
+                         "slug":  "masangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Masangan"
+                     },
+                     {
+                         "code":  "35.25.12.2008",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sidokumpul",
+                         "slug":  "sidokumpul",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidokumpul"
+                     },
+                     {
+                         "code":  "35.25.12.2009",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Pegundan",
+                         "slug":  "pegundan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pegundan"
+                     },
+                     {
+                         "code":  "35.25.12.2010",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sukowati",
+                         "slug":  "sukowati",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukowati"
+                     },
+                     {
+                         "code":  "35.25.12.2011",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Abar-abir",
+                         "slug":  "abar-abir",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Abar-abir"
+                     },
+                     {
+                         "code":  "35.25.12.2012",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Bungah",
+                         "slug":  "bungah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bungah"
+                     },
+                     {
+                         "code":  "35.25.12.2013",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Kemangi",
+                         "slug":  "kemangi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kemangi"
+                     },
+                     {
+                         "code":  "35.25.12.2014",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Kisik",
+                         "slug":  "kisik",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kisik"
+                     },
+                     {
+                         "code":  "35.25.12.2015",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Gumeng",
+                         "slug":  "gumeng",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gumeng"
+                     },
+                     {
+                         "code":  "35.25.12.2016",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sukorejo",
+                         "slug":  "sukorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukorejo"
+                     },
+                     {
+                         "code":  "35.25.12.2017",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Indrodelik",
+                         "slug":  "indrodelik",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Indrodelik"
+                     },
+                     {
+                         "code":  "35.25.12.2018",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Bedanten",
+                         "slug":  "bedanten",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bedanten"
+                     },
+                     {
+                         "code":  "35.25.12.2019",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Sungonlegowo",
+                         "slug":  "sungonlegowo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sungonlegowo"
+                     },
+                     {
+                         "code":  "35.25.12.2020",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Tanjung Widoro",
+                         "slug":  "tanjung-widoro",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanjung Widoro"
+                     },
+                     {
+                         "code":  "35.25.12.2021",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Watuagung",
+                         "slug":  "watuagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Watuagung"
+                     },
+                     {
+                         "code":  "35.25.12.2022",
+                         "subdistrict_code":  "35.25.12",
+                         "subdistrict_slug":  "bungah",
+                         "name":  "Kramat",
+                         "slug":  "kramat",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kramat"
+                     },
+                     {
+                         "code":  "35.25.13.2001",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Beton",
+                         "slug":  "beton",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Beton"
+                     },
+                     {
+                         "code":  "35.25.13.2002",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Pranti",
+                         "slug":  "pranti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pranti"
+                     },
+                     {
+                         "code":  "35.25.13.2003",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Gadingwatu",
+                         "slug":  "gadingwatu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gadingwatu"
+                     },
+                     {
+                         "code":  "35.25.13.2004",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Bringkang",
+                         "slug":  "bringkang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bringkang"
+                     },
+                     {
+                         "code":  "35.25.13.2005",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Boteng",
+                         "slug":  "boteng",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Boteng"
+                     },
+                     {
+                         "code":  "35.25.13.2006",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Putatlor",
+                         "slug":  "putatlor",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Putatlor"
+                     },
+                     {
+                         "code":  "35.25.13.2007",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Domas",
+                         "slug":  "domas",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Domas"
+                     },
+                     {
+                         "code":  "35.25.13.2008",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Mojotengah",
+                         "slug":  "mojotengah",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojotengah"
+                     },
+                     {
+                         "code":  "35.25.13.2009",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Boboh",
+                         "slug":  "boboh",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Boboh"
+                     },
+                     {
+                         "code":  "35.25.13.2010",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Sidojangkung",
+                         "slug":  "sidojangkung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidojangkung"
+                     },
+                     {
+                         "code":  "35.25.13.2011",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Hendrosari",
+                         "slug":  "hendrosari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Hendrosari"
+                     },
+                     {
+                         "code":  "35.25.13.2012",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Pelemwatu",
+                         "slug":  "pelemwatu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pelemwatu"
+                     },
+                     {
+                         "code":  "35.25.13.2013",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Menganti",
+                         "slug":  "menganti",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Menganti"
+                     },
+                     {
+                         "code":  "35.25.13.2014",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Hulaan",
+                         "slug":  "hulaan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Hulaan"
+                     },
+                     {
+                         "code":  "35.25.13.2015",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Kepatihan",
+                         "slug":  "kepatihan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kepatihan"
+                     },
+                     {
+                         "code":  "35.25.13.2016",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Gempolkurung",
+                         "slug":  "gempolkurung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gempolkurung"
+                     },
+                     {
+                         "code":  "35.25.13.2017",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Drancang",
+                         "slug":  "drancang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Drancang"
+                     },
+                     {
+                         "code":  "35.25.13.2018",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Sidowungu",
+                         "slug":  "sidowungu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidowungu"
+                     },
+                     {
+                         "code":  "35.25.13.2019",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Randupadangan",
+                         "slug":  "randupadangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Randupadangan"
+                     },
+                     {
+                         "code":  "35.25.13.2020",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Setro",
+                         "slug":  "setro",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Setro"
+                     },
+                     {
+                         "code":  "35.25.13.2021",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Pengalangan",
+                         "slug":  "pengalangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pengalangan"
+                     },
+                     {
+                         "code":  "35.25.13.2022",
+                         "subdistrict_code":  "35.25.13",
+                         "subdistrict_slug":  "menganti",
+                         "name":  "Laban",
+                         "slug":  "laban",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Laban"
+                     },
+                     {
+                         "code":  "35.25.14.1006",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Gulomantung",
+                         "slug":  "gulomantung",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Gulomantung"
+                     },
+                     {
+                         "code":  "35.25.14.1008",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Sidomukti",
+                         "slug":  "sidomukti",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Sidomukti"
+                     },
+                     {
+                         "code":  "35.25.14.1010",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Kebomas",
+                         "slug":  "kebomas",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Kebomas"
+                     },
+                     {
+                         "code":  "35.25.14.1011",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Kawis Anyar",
+                         "slug":  "kawis-anyar",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Kawis Anyar"
+                     },
+                     {
+                         "code":  "35.25.14.1012",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Ngargosari",
+                         "slug":  "ngargosari",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Ngargosari"
+                     },
+                     {
+                         "code":  "35.25.14.1014",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Gending",
+                         "slug":  "gending",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Gending"
+                     },
+                     {
+                         "code":  "35.25.14.1015",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Sidomoro",
+                         "slug":  "sidomoro",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Sidomoro"
+                     },
+                     {
+                         "code":  "35.25.14.1016",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Tenggulunan",
+                         "slug":  "tenggulunan",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Tenggulunan"
+                     },
+                     {
+                         "code":  "35.25.14.1017",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Singosari",
+                         "slug":  "singosari",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Singosari"
+                     },
+                     {
+                         "code":  "35.25.14.1019",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Indro",
+                         "slug":  "indro",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Indro"
+                     },
+                     {
+                         "code":  "35.25.14.2001",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Dahanrejo",
+                         "slug":  "dahanrejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dahanrejo"
+                     },
+                     {
+                         "code":  "35.25.14.2002",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Kembangan",
+                         "slug":  "kembangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kembangan"
+                     },
+                     {
+                         "code":  "35.25.14.2003",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Kedayang",
+                         "slug":  "kedayang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kedayang"
+                     },
+                     {
+                         "code":  "35.25.14.2004",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Randuagung",
+                         "slug":  "randuagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Randuagung"
+                     },
+                     {
+                         "code":  "35.25.14.2005",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Klangonan",
+                         "slug":  "klangonan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Klangonan"
+                     },
+                     {
+                         "code":  "35.25.14.2007",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Sukorejo",
+                         "slug":  "sukorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukorejo"
+                     },
+                     {
+                         "code":  "35.25.14.2009",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Giri",
+                         "slug":  "giri",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Giri"
+                     },
+                     {
+                         "code":  "35.25.14.2013",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Segoromadu",
+                         "slug":  "segoromadu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Segoromadu"
+                     },
+                     {
+                         "code":  "35.25.14.2018",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Karangkiring",
+                         "slug":  "karangkiring",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangkiring"
+                     },
+                     {
+                         "code":  "35.25.14.2020",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Prambangan",
+                         "slug":  "prambangan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Prambangan"
+                     },
+                     {
+                         "code":  "35.25.14.2021",
+                         "subdistrict_code":  "35.25.14",
+                         "subdistrict_slug":  "kebomas",
+                         "name":  "Sekarkurung",
+                         "slug":  "sekarkurung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sekarkurung"
+                     },
+                     {
+                         "code":  "35.25.15.2001",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Karangandong",
+                         "slug":  "karangandong",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Karangandong"
+                     },
+                     {
+                         "code":  "35.25.15.2002",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Banjaran",
+                         "slug":  "banjaran",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Banjaran"
+                     },
+                     {
+                         "code":  "35.25.15.2003",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Krikilan",
+                         "slug":  "krikilan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Krikilan"
+                     },
+                     {
+                         "code":  "35.25.15.2004",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Mojosari Rejo",
+                         "slug":  "mojosari-rejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mojosari Rejo"
+                     },
+                     {
+                         "code":  "35.25.15.2005",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Tanjungan",
+                         "slug":  "tanjungan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanjungan"
+                     },
+                     {
+                         "code":  "35.25.15.2006",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Anom",
+                         "slug":  "anom",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Anom"
+                     },
+                     {
+                         "code":  "35.25.15.2007",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Sumput",
+                         "slug":  "sumput",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sumput"
+                     },
+                     {
+                         "code":  "35.25.15.2008",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Kesamben Wetan",
+                         "slug":  "kesamben-wetan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kesamben Wetan"
+                     },
+                     {
+                         "code":  "35.25.15.2009",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Randegansari",
+                         "slug":  "randegansari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Randegansari"
+                     },
+                     {
+                         "code":  "35.25.15.2010",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Tenaru",
+                         "slug":  "tenaru",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tenaru"
+                     },
+                     {
+                         "code":  "35.25.15.2011",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Driyorejo",
+                         "slug":  "driyorejo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Driyorejo"
+                     },
+                     {
+                         "code":  "35.25.15.2012",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Petiken",
+                         "slug":  "petiken",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Petiken"
+                     },
+                     {
+                         "code":  "35.25.15.2013",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Cangkir",
+                         "slug":  "cangkir",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Cangkir"
+                     },
+                     {
+                         "code":  "35.25.15.2014",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Gadung",
+                         "slug":  "gadung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gadung"
+                     },
+                     {
+                         "code":  "35.25.15.2015",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Mulung",
+                         "slug":  "mulung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Mulung"
+                     },
+                     {
+                         "code":  "35.25.15.2016",
+                         "subdistrict_code":  "35.25.15",
+                         "subdistrict_slug":  "driyorejo",
+                         "name":  "Bambe",
+                         "slug":  "bambe",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bambe"
+                     },
+                     {
+                         "code":  "35.25.16.1001",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Ngipik",
+                         "slug":  "ngipik",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Ngipik"
+                     },
+                     {
+                         "code":  "35.25.16.1002",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Tlogo Pojok",
+                         "slug":  "tlogo-pojok",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Tlogo Pojok"
+                     },
+                     {
+                         "code":  "35.25.16.1003",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Karang Turi",
+                         "slug":  "karang-turi",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Karang Turi"
+                     },
+                     {
+                         "code":  "35.25.16.1004",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Tlogo Patut",
+                         "slug":  "tlogo-patut",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Tlogo Patut"
+                     },
+                     {
+                         "code":  "35.25.16.1005",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Sukorame",
+                         "slug":  "sukorame",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Sukorame"
+                     },
+                     {
+                         "code":  "35.25.16.1006",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Lumpur",
+                         "slug":  "lumpur",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Lumpur"
+                     },
+                     {
+                         "code":  "35.25.16.1007",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Karang Poh",
+                         "slug":  "karang-poh",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Karang Poh"
+                     },
+                     {
+                         "code":  "35.25.16.1008",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Trate",
+                         "slug":  "trate",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Trate"
+                     },
+                     {
+                         "code":  "35.25.16.1010",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Sido Kumpul",
+                         "slug":  "sido-kumpul",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Sido Kumpul"
+                     },
+                     {
+                         "code":  "35.25.16.1011",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Bedilan",
+                         "slug":  "bedilan",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Bedilan"
+                     },
+                     {
+                         "code":  "35.25.16.1012",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Sukodono",
+                         "slug":  "sukodono",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Sukodono"
+                     },
+                     {
+                         "code":  "35.25.16.1013",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Kemuteran",
+                         "slug":  "kemuteran",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Kemuteran"
+                     },
+                     {
+                         "code":  "35.25.16.1014",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Pekelingan",
+                         "slug":  "pekelingan",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Pekelingan"
+                     },
+                     {
+                         "code":  "35.25.16.1015",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Kroman",
+                         "slug":  "kroman",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Kroman"
+                     },
+                     {
+                         "code":  "35.25.16.1016",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Kebungson",
+                         "slug":  "kebungson",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Kebungson"
+                     },
+                     {
+                         "code":  "35.25.16.1017",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Pekauman",
+                         "slug":  "pekauman",
+                         "type":  "kelurahan",
+                         "default_business_name":  "KDKMP Kelurahan Pekauman"
+                     },
+                     {
+                         "code":  "35.25.16.2009",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Tlogobendung",
+                         "slug":  "tlogobendung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tlogobendung"
+                     },
+                     {
+                         "code":  "35.25.16.2018",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Gapuro Sukolilo",
+                         "slug":  "gapuro-sukolilo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gapuro Sukolilo"
+                     },
+                     {
+                         "code":  "35.25.16.2019",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Pulopancikan",
+                         "slug":  "pulopancikan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pulopancikan"
+                     },
+                     {
+                         "code":  "35.25.16.2020",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Kramatinggil",
+                         "slug":  "kramatinggil",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kramatinggil"
+                     },
+                     {
+                         "code":  "35.25.16.2021",
+                         "subdistrict_code":  "35.25.16",
+                         "subdistrict_slug":  "gresik",
+                         "name":  "Sidorukun",
+                         "slug":  "sidorukun",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidorukun"
+                     },
+                     {
+                         "code":  "35.25.17.2001",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Dekatagung",
+                         "slug":  "dekatagung",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Dekatagung"
+                     },
+                     {
+                         "code":  "35.25.17.2002",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Kumalasa",
+                         "slug":  "kumalasa",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kumalasa"
+                     },
+                     {
+                         "code":  "35.25.17.2003",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Suwari",
+                         "slug":  "suwari",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Suwari"
+                     },
+                     {
+                         "code":  "35.25.17.2004",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Pudakitbarat",
+                         "slug":  "pudakitbarat",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pudakitbarat"
+                     },
+                     {
+                         "code":  "35.25.17.2005",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Pudakittimur",
+                         "slug":  "pudakittimur",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pudakittimur"
+                     },
+                     {
+                         "code":  "35.25.17.2006",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Lebak",
+                         "slug":  "lebak",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Lebak"
+                     },
+                     {
+                         "code":  "35.25.17.2007",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Bululanjang",
+                         "slug":  "bululanjang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Bululanjang"
+                     },
+                     {
+                         "code":  "35.25.17.2008",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Patarselamat",
+                         "slug":  "patarselamat",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Patarselamat"
+                     },
+                     {
+                         "code":  "35.25.17.2009",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Kotakusuma",
+                         "slug":  "kotakusuma",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kotakusuma"
+                     },
+                     {
+                         "code":  "35.25.17.2010",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Sungaiteluk",
+                         "slug":  "sungaiteluk",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sungaiteluk"
+                     },
+                     {
+                         "code":  "35.25.17.2011",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Gunungteguh",
+                         "slug":  "gunungteguh",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gunungteguh"
+                     },
+                     {
+                         "code":  "35.25.17.2012",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Sawahmulya",
+                         "slug":  "sawahmulya",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sawahmulya"
+                     },
+                     {
+                         "code":  "35.25.17.2013",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Sungairujing",
+                         "slug":  "sungairujing",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sungairujing"
+                     },
+                     {
+                         "code":  "35.25.17.2014",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Balikterus",
+                         "slug":  "balikterus",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Balikterus"
+                     },
+                     {
+                         "code":  "35.25.17.2015",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Kebontelukdalam",
+                         "slug":  "kebontelukdalam",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kebontelukdalam"
+                     },
+                     {
+                         "code":  "35.25.17.2016",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Sidogedungbatu",
+                         "slug":  "sidogedungbatu",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sidogedungbatu"
+                     },
+                     {
+                         "code":  "35.25.17.2017",
+                         "subdistrict_code":  "35.25.17",
+                         "subdistrict_slug":  "sangkapura",
+                         "name":  "Daun",
+                         "slug":  "daun",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Daun"
+                     },
+                     {
+                         "code":  "35.25.18.2001",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Gelam",
+                         "slug":  "gelam",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Gelam"
+                     },
+                     {
+                         "code":  "35.25.18.2002",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Sukaoneng",
+                         "slug":  "sukaoneng",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukaoneng"
+                     },
+                     {
+                         "code":  "35.25.18.2003",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Sukalela",
+                         "slug":  "sukalela",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Sukalela"
+                     },
+                     {
+                         "code":  "35.25.18.2004",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Pekalongan",
+                         "slug":  "pekalongan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Pekalongan"
+                     },
+                     {
+                         "code":  "35.25.18.2005",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Tambak",
+                         "slug":  "tambak",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tambak"
+                     },
+                     {
+                         "code":  "35.25.18.2006",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Telukjatidawang",
+                         "slug":  "telukjatidawang",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Telukjatidawang"
+                     },
+                     {
+                         "code":  "35.25.18.2007",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Klumpanggubug",
+                         "slug":  "klumpanggubug",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Klumpanggubug"
+                     },
+                     {
+                         "code":  "35.25.18.2008",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Grejeg",
+                         "slug":  "grejeg",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Grejeg"
+                     },
+                     {
+                         "code":  "35.25.18.2009",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Tanjungori",
+                         "slug":  "tanjungori",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Tanjungori"
+                     },
+                     {
+                         "code":  "35.25.18.2010",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Peromaan",
+                         "slug":  "peromaan",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Peromaan"
+                     },
+                     {
+                         "code":  "35.25.18.2011",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Diponggo",
+                         "slug":  "diponggo",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Diponggo"
+                     },
+                     {
+                         "code":  "35.25.18.2012",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Kepuhteluk",
+                         "slug":  "kepuhteluk",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kepuhteluk"
+                     },
+                     {
+                         "code":  "35.25.18.2013",
+                         "subdistrict_code":  "35.25.18",
+                         "subdistrict_slug":  "tambak",
+                         "name":  "Kepuhlegundi",
+                         "slug":  "kepuhlegundi",
+                         "type":  "desa",
+                         "default_business_name":  "KDKMP Desa Kepuhlegundi"
+                     }
+                 ]
+}
