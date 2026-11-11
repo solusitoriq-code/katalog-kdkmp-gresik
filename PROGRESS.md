@@ -164,7 +164,7 @@ Status: `TODO` · `WIP` · `DONE` · `BLOCKED` · `SKIP`
 - [x] Inisialisasi Git lokal (branch `main`, user.name `solusitoriq-code`, user.email `solusi.toriq@gmail.com`)
 - [x] Commit awal `feat: inisialisasi proyek Katalog Online KDKMP Gresik (Fase 1 S01-S13a)`
 - [x] Konfigurasi remote Git `git@github-kedua:solusitoriq-code/katalog-kdkmp-gresik.git`
-- [ ] Buat repositori kosong di GitHub dan lakukan `git push -u origin main`
+- [x] Push ke remote GitHub `git@github-kedua:solusitoriq-code/katalog-kdkmp-gresik.git` (branch `main` up-to-date)
 - [ ] Hubungkan Cloudflare Pages (build `npm run build`, output `dist`, headers cache)
 - [ ] Set environment variables di Cloudflare Pages (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`)
 - [ ] Konfigurasi Supabase Auth Site URL & Redirect URLs ke domain `*.pages.dev`
