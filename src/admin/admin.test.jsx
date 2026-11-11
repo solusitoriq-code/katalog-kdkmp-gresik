@@ -70,7 +70,11 @@ import {
   recordOrderLog,
   getVillageStats,
 } from '../lib/api';
-import { DEMO_VILLAGE_DIRECTORY } from '../lib/demoData';
+import {
+  DEMO_VILLAGE_DIRECTORY,
+  getAllDemoCategories,
+  getDemoAdminProductsByVillageId,
+} from '../lib/demoData';
 import { formatDigitsInput, parseFormattedInt } from '../lib/format';
 import {
   extractStorageObjectPath,
@@ -2932,6 +2936,33 @@ describe('Statistik Checkout WA (S12)', () => {
 
     const superAdmin = { role: 'authenticated', role_type: 'super_admin' };
     expect(canAnonSelect(superAdmin)).toBe(true);
+  });
+
+  it('allows owner to update product image link with global categories without RLS violation', async () => {
+    const products = getDemoAdminProductsByVillageId(GOLOKAN.id);
+    const targetProduct = products[0];
+
+    const allCategories = getAllDemoCategories();
+    // Ambil kategori yang bukan milik Golokan (atau global)
+    const globalCategory = allCategories.find((c) => c.village_id !== GOLOKAN.id) || allCategories[0];
+
+    const driveUrl = 'https://drive.google.com/uc?export=view&id=1AbCdEfGhIjKlMnOpQrStUvWxYz012345';
+    const updated = await updateAdminProduct(
+      targetProduct.id,
+      {
+        image_url: driveUrl,
+        category_id: globalCategory.id,
+      },
+      {
+        villageId: GOLOKAN.id,
+        demo: true,
+        actorUserId: ADMIN_GOLOKAN_ID,
+      }
+    );
+
+    expect(updated.image_url).toBe(driveImageUrl(driveUrl));
+    expect(updated.category_id).toBe(globalCategory.id);
+    expect(updated.category_name).toBe(globalCategory.name);
   });
 });
 

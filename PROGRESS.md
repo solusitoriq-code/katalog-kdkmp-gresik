@@ -749,11 +749,29 @@ Keputusan baru:
 Sisa / blocker: Tidak ada
 Catatan untuk sesi berikut: S13b (Setup Git remote, Cloudflare Pages Free, konfigurasi Supabase Auth URL, dan verifikasi deep link SPA produksi).
 
+### Fix RLS Products Master Kategori Global · 2026-11-11
+Status: DONE
+File dibuat/diubah:
+- `supabase/migrations/0009_fix_products_rls_global_categories.sql`
+- `supabase/migrations/0002_rls.sql`
+- `supabase/README.md`
+- `src/lib/api.js`
+- `src/admin/admin.test.jsx`
+- `PROGRESS.md`
+Verifikasi: build ✓ (`dist/assets/AdminApp-*.js` 152.62 KB / gzip 36.55 kB) · lint ✓ · test ✓ (104/104) · viewport 360/768/1024/1280 ✓ · grep gradient = 0
+Keputusan baru:
+- Memperbarui RLS policy `products_all_village_admin` pada tabel `products` melalui migrasi `0009_fix_products_rls_global_categories.sql` agar tidak lagi mengecek kesamaan `c.village_id = products.village_id`, melainkan hanya mengecek keberadaan `category_id` di `public.categories`. Hal ini menyelaraskan RLS dengan Master Kategori Global (S11b) di mana `categories.village_id` bernilai `NULL` dan digunakan bersama oleh seluruh KDKMP se-Kabupaten Gresik.
+- Menormalkan seluruh `village_id` di `public.categories` menjadi `NULL`.
+- Memperbarui mock mutasi produk di `src/lib/api.js` agar menggunakan pencarian kategori master `findDemoCategoryById` daripada per-desa.
+Sisa / blocker: Tidak ada
+Catatan untuk sesi berikut: Jalankan migrasi `0009_fix_products_rls_global_categories.sql` di Supabase SQL Editor bagi instance yang sudah berjalan.
+
 ## Log Bug
 
 | Tanggal | Route | Gejala | Akar masalah | Status |
 |---|---|---|---|---|
 | 2026-11-09 | `/admin/produk` | Tombol `Batal` & `Simpan Produk` pada modal Tambah/Ubah Produk di desktop (`lg`) melayang di tengah modal dan menutupi form | Class `sticky bottom-0` pada footer `Sheet` melekat ke koordinat viewport sebelum transform `lg:-translate-y-1/2` karena kontainer dialog belum `overflow-hidden` | DONE (`shrink-0` pada header/footer + `min-h-0 flex-1 overflow-y-auto` pada body + `overflow-hidden` pada dialog) |
+| 2026-11-11 | `/admin/produk` | Error `new row violates row-level security policy for table "products"` saat akun owner menambah/mengubah link gambar atau data produk berkategori | Policy RLS `products_all_village_admin` masih mengecek `c.village_id = products.village_id`, sedangkan pada S11b kategori telah bermigrasi menjadi Master Kategori Global (`village_id` bernilai `NULL` atau lintas desa) | DONE (Migrasi `0009_fix_products_rls_global_categories.sql`, update `0002_rls.sql`, & penyesuaian `src/lib/api.js`) |
 
 ## Known Limitation
 

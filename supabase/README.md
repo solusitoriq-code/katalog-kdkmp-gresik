@@ -25,6 +25,7 @@ Jalankan file migrasi secara berurutan di **Supabase Dashboard → SQL Editor** 
 6. [`migrations/0006_super_admin_products_read_only.sql`](migrations/0006_super_admin_products_read_only.sql) — Kebijakan RLS Super Admin untuk meninjau produk (`SELECT`) tanpa batasan tenant.
 7. [`migrations/0007_super_admin_passwords_and_manager.sql`](migrations/0007_super_admin_passwords_and_manager.sql) — RPC `super_admin_reset_user_password` dan update `assign_village_admin` dengan pembuatan akun otomatis (`auto_create`).
 8. [`migrations/0008_order_logs.sql`](migrations/0008_order_logs.sql) — Tabel analitik checkout WhatsApp `order_logs` (tanpa data pribadi), RLS anon INSERT & SELECT khusus admin, serta RPC `get_village_stats(p_village, p_days)`.
+9. [`migrations/0009_fix_products_rls_global_categories.sql`](migrations/0009_fix_products_rls_global_categories.sql) — Perbaikan RLS Policy `products_all_village_admin` agar produk dapat menggunakan Master Kategori Global tanpa terbentur `c.village_id`.
 
 ---
 

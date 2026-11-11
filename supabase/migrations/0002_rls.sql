@@ -249,7 +249,6 @@ CREATE POLICY "products_all_village_admin"
         SELECT 1
         FROM public.categories c
         WHERE c.id = products.category_id
-          AND c.village_id = products.village_id
       )
     )
   );

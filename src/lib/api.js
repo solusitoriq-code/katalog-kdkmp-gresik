@@ -1426,10 +1426,9 @@ export async function createAdminProduct(
   if (demo || isDemo || isDemoMode() || !supabase) {
     assertDemoProductMutationAccess(vid, actorUserId);
 
-    const cats = getDemoAdminCategoriesByVillageId(vid);
     let categoryName = null;
     if (sanitized.category_id) {
-      const cat = cats.find((c) => c.id === sanitized.category_id);
+      const cat = findDemoCategoryById(sanitized.category_id);
       if (!cat) {
         throw createRlsError('Kategori tidak valid untuk koperasi ini.');
       }
@@ -1544,8 +1543,7 @@ export async function updateAdminProduct(
       if (!nextCategoryId) {
         nextCategoryName = null;
       } else {
-        const cats = getDemoAdminCategoriesByVillageId(existing.village_id);
-        const cat = cats.find((c) => c.id === nextCategoryId);
+        const cat = findDemoCategoryById(nextCategoryId);
         if (!cat) {
           throw createRlsError('Kategori tidak valid untuk koperasi ini.');
         }
