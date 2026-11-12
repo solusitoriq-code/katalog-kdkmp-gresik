@@ -1,5 +1,5 @@
 import { useState, useId, useEffect, useMemo } from 'react';
-import { Camera, Trash2, Star, Package } from 'lucide-react';
+import { Camera, Trash2, Star, Package, ScanBarcode } from 'lucide-react';
 import { Button, Input, Select, Sheet, Num } from '../components/ui';
 import {
   PRODUCT_UNITS,
@@ -12,6 +12,7 @@ import {
 } from '../lib/api';
 import { formatDigitsInput, parseFormattedInt } from '../lib/format';
 import { driveImageUrl } from '../lib/image';
+import { BarcodeScannerModal } from './BarcodeScannerModal';
 
 const STANDARD_UNITS = PRODUCT_UNITS.filter((u) => u !== 'lainnya');
 
@@ -73,6 +74,8 @@ export function ProductFormSheet({
   const initUnit = getInitialUnitState(initialProduct?.unit);
 
   const [name, setName] = useState(() => initialProduct?.name ?? '');
+  const [barcode, setBarcode] = useState(() => initialProduct?.barcode ?? '');
+  const [isBarcodeScannerOpen, setIsBarcodeScannerOpen] = useState(false);
   const [categoryId, setCategoryId] = useState(
     () => initialProduct?.category_id ?? ''
   );
@@ -259,6 +262,7 @@ export function ProductFormSheet({
       const payload = {
         village_id: villageId,
         name: cleanName,
+        barcode: barcode.trim() || null,
         category_id: categoryId || null,
         price: parsedPrice,
         original_price: parsedOrig,
@@ -296,7 +300,8 @@ export function ProductFormSheet({
   const previewUrl = imageUrl ? driveImageUrl(imageUrl) : '';
 
   return (
-    <Sheet
+    <>
+      <Sheet
       open={open}
       onClose={handleCancel}
       title={isEdit ? 'Ubah Produk' : 'Tambah Produk'}
@@ -355,6 +360,37 @@ export function ProductFormSheet({
           onChange={(e) => setCategoryId(e.target.value)}
           options={categoryOptions}
         />
+
+        <div className="space-y-1.5">
+          <label
+            htmlFor="product-form-barcode"
+            className="text-xs font-semibold text-text"
+          >
+            Barcode / Kode Produk (Opsional)
+          </label>
+          <div className="flex items-center gap-2">
+            <Input
+              id="product-form-barcode"
+              value={barcode}
+              onChange={(e) => setBarcode(e.target.value)}
+              placeholder="Contoh: 899100100001"
+              className="min-h-11 flex-1 font-mono tabular-nums text-xs md:text-sm"
+              aria-label="Barcode / Kode Produk (Opsional)"
+            />
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => setIsBarcodeScannerOpen(true)}
+              className="min-h-11 shrink-0 px-3 font-semibold flex items-center gap-1.5"
+              title="Pindai Barcode via Kamera"
+              aria-label="Pindai barcode via kamera"
+            >
+              <ScanBarcode className="h-4 w-4 text-primary-700" aria-hidden="true" />
+              <span>Scan Barcode</span>
+            </Button>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Input
@@ -527,7 +563,17 @@ export function ProductFormSheet({
         </div>
       </form>
     </Sheet>
-  );
+    <BarcodeScannerModal
+      open={isBarcodeScannerOpen}
+      onClose={() => setIsBarcodeScannerOpen(false)}
+      onScan={(scannedCode) => {
+        setBarcode(scannedCode);
+      }}
+      mode="raw"
+      title="Pindai Barcode Produk"
+    />
+  </>
+);
 }
 
 export default ProductFormSheet;

@@ -18,6 +18,7 @@ import {
 import { AdminWilayahPage } from './AdminWilayahPage';
 import { AdminUnitsPage } from './AdminUnitsPage';
 import { AdminOrdersPage, OrderDetailsSheet, OrderFormSheet } from './AdminOrdersPage';
+import { BarcodeScannerModal } from './BarcodeScannerModal';
 import { ChangePasswordModal } from './ChangePasswordModal';
 import {
   summarizeProductsByStock,
@@ -3351,6 +3352,10 @@ describe('Admin: CRUD Transaksi / Orders (S14)', () => {
     expect(editHtml).toContain('Beras Pandan 5kg');
     expect(editHtml).toContain('Rp 144.000');
     expect(editHtml).toContain('Simpan Perubahan');
+    expect(editHtml).toContain('Ringkasan belanja mengambang');
+    expect(editHtml).toContain('Lihat Item');
+    expect(editHtml).toContain('Isi Data');
+    expect(editHtml).toContain('order-customer-section');
   });
 
   it('renders OrderDetailsSheet with full customer data, items breakdown, and status select', () => {
@@ -3498,6 +3503,116 @@ describe('Admin: CRUD Transaksi / Orders (S14)', () => {
     expect(villageAdminHtml).toContain('Pilih Produk Koperasi');
     expect(villageAdminHtml).toContain('Daftar Item (0)');
     expect(villageAdminHtml).toContain('Data Pemesan &amp; Pengiriman');
+  });
+
+  it('supports barcode scanning, responsive search, category filtering, and barcode input for order items (S14b)', async () => {
+    // 1. Verify BarcodeScannerModal renders dialog, viewfinder, and manual barcode input
+    const modalHtml = renderToStaticMarkup(
+      <BarcodeScannerModal
+        open={true}
+        onClose={() => {}}
+        onScan={() => {}}
+        products={[]}
+      />
+    );
+    expect(modalHtml).toContain('Pindai Barcode Produk');
+    expect(modalHtml).toContain('Input Kode Barcode Manual');
+    expect(modalHtml).toContain('Cari &amp; Tambah');
+    expect(modalHtml).toContain('Batal');
+
+    // 2. Verify OrderFormSheet renders responsive search bar, category chips, and scan barcode button
+    const testProducts = [
+      {
+        id: 'prod-1',
+        name: 'Beras Pandan 5kg',
+        barcode: '899100100001',
+        category_id: 'cat-1',
+        category_name: 'Pangan Pokok',
+        price: 72000,
+        unit: 'karung',
+        stock_status: 'ready',
+      },
+      {
+        id: 'prod-2',
+        name: 'Minyak Goreng 2L',
+        barcode: '899100100004',
+        category_id: 'cat-2',
+        category_name: 'Minyak & Gula',
+        price: 35000,
+        unit: 'pouch',
+        stock_status: 'ready',
+      },
+      {
+        id: 'prod-3',
+        name: 'Mi Instan Paket 5',
+        barcode: '899100100010',
+        category_id: 'cat-3',
+        category_name: 'Harian',
+        price: 14500,
+        unit: 'pack',
+        stock_status: 'habis',
+      },
+    ];
+
+    const formHtml = renderToStaticMarkup(
+      <MemoryRouter>
+        <OrderFormSheet
+          open={true}
+          order={null}
+          onClose={() => {}}
+          onSave={() => {}}
+          products={testProducts}
+          defaultVillageId={GOLOKAN.id}
+        />
+      </MemoryRouter>
+    );
+
+    expect(formHtml).toContain('Pilih Produk Koperasi');
+    expect(formHtml).toContain('Scan Barcode');
+    expect(formHtml).toContain('Cari nama, barcode, atau kategori...');
+    expect(formHtml).toContain('Daftar Item (0)');
+    expect(formHtml).toContain('Belum ada item pesanan');
+
+    // 3. Verify ProductFormSheet includes optional Barcode / Kode Produk input
+    const prodSheetHtml = renderToStaticMarkup(
+      <ProductFormSheet
+        open={true}
+        onClose={() => {}}
+        categories={[]}
+        villageId={GOLOKAN.id}
+        isDemo={true}
+        actorUserId={ADMIN_GOLOKAN_ID}
+      />
+    );
+    expect(prodSheetHtml).toContain('Barcode / Kode Produk (Opsional)');
+
+    // 4. Verify createAdminProduct and updateAdminProduct persist barcode
+    const newProd = await createAdminProduct(
+      {
+        village_id: GOLOKAN.id,
+        name: 'Garam Dapur Cap Kapal 250g',
+        barcode: '899200200001',
+        price: 4500,
+        unit: 'bungkus',
+        stock_status: 'ready',
+      },
+      { demo: true, actorUserId: ADMIN_GOLOKAN_ID }
+    );
+    expect(newProd.barcode).toBe('899200200001');
+
+    const updatedProd = await updateAdminProduct(
+      newProd.id,
+      { barcode: '899200200999' },
+      { demo: true, villageId: GOLOKAN.id, actorUserId: ADMIN_GOLOKAN_ID }
+    );
+    expect(updatedProd.barcode).toBe('899200200999');
+
+    // Clean up created product
+    await deleteAdminProduct(newProd.id, {
+      demo: true,
+      villageId: GOLOKAN.id,
+      actorUserId: ADMIN_GOLOKAN_ID,
+    });
   });
 });
 

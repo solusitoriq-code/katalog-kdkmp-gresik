@@ -39,7 +39,7 @@ export function matchesProduct(product, query) {
   if (!product || typeof product !== 'object') return false;
 
   const haystack = normalize(
-    `${product.name || ''} ${product.category_name || product.category || ''} ${product.description || ''}`
+    `${product.name || ''} ${product.category_name || product.category || ''} ${product.barcode || ''} ${product.description || ''}`
   );
 
   return tokens.every((token) => haystack.includes(token));

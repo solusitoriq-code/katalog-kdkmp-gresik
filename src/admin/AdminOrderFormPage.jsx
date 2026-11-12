@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams, Link } from 'react-router';
 import {
   ArrowLeft,
@@ -6,11 +6,19 @@ import {
   Minus,
   Trash2,
   Check,
+  Search,
+  X,
+  ScanBarcode,
+  Package,
+  CheckCircle2,
+  ShoppingBag,
+  ChevronUp,
 } from 'lucide-react';
 import {
   Button,
   Input,
   Select,
+  Sheet,
   Money,
   Num,
   Skeleton,
@@ -23,6 +31,7 @@ import {
   getAdminProducts,
 } from '../lib/api';
 import { useAuth } from './AuthContext';
+import { BarcodeScannerModal } from './BarcodeScannerModal';
 
 export function AdminOrderFormPage({
   mode = 'create',
@@ -80,8 +89,8 @@ export function AdminOrderFormPage({
   const [items, setItems] = useState(() => {
     if (effectiveInitialOrder?.items && Array.isArray(effectiveInitialOrder.items)) {
       return effectiveInitialOrder.items.map((it) => ({
-        product_id: it.product_id || '',
-        name: it.name || '',
+        product_id: it.product_id || it.productId || it.id || '',
+        name: it.name || it.product_name || it.productName || '',
         qty: Math.max(1, Number(it.qty) || 1),
         price: Math.max(0, Number(it.price) || 0),
         unit: it.unit || 'pcs',
@@ -91,8 +100,43 @@ export function AdminOrderFormPage({
   });
 
   // Product picker states
-  const [selectedProductId, setSelectedProductId] = useState('');
-  const [pickerQty, setPickerQty] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
+  const [isCartSheetOpen, setIsCartSheetOpen] = useState(false);
+  const [barcodeFeedback, setBarcodeFeedback] = useState(null);
+  const feedbackTimeoutRef = useRef(null);
+  const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      if (feedbackTimeoutRef.current) {
+        clearTimeout(feedbackTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Filtered products based on search query (name, category, barcode, description)
+  const filteredProducts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return products;
+    return products.filter((p) => {
+      const nameMatch = p.name?.toLowerCase().includes(q);
+      const catMatch = (p.categories?.name || p.category_name || '').toLowerCase().includes(q);
+      const barcodeMatch = p.barcode?.toLowerCase().includes(q);
+      const descMatch = p.description?.toLowerCase().includes(q);
+      return Boolean(nameMatch || catMatch || barcodeMatch || descMatch);
+    });
+  }, [products, searchQuery]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -127,8 +171,8 @@ export function AdminOrderFormPage({
         setItems(
           Array.isArray(data.items)
             ? data.items.map((it) => ({
-                product_id: it.product_id || '',
-                name: it.name || '',
+                product_id: it.product_id || it.productId || it.id || '',
+                name: it.name || it.product_name || it.productName || '',
                 qty: Math.max(1, Number(it.qty) || 1),
                 price: Math.max(0, Number(it.price) || 0),
                 unit: it.unit || 'pcs',
@@ -187,19 +231,25 @@ export function AdminOrderFormPage({
     );
   }
 
-  // Handle Add Product from Cooperative catalog
-  const handleAddProductFromCatalog = () => {
-    if (!selectedProductId) return;
-    const prod = products.find((p) => p.id === selectedProductId);
-    if (!prod) return;
+  const triggerFeedback = (type, message) => {
+    if (feedbackTimeoutRef.current) {
+      clearTimeout(feedbackTimeoutRef.current);
+    }
+    setBarcodeFeedback({ type, message });
+    feedbackTimeoutRef.current = setTimeout(() => {
+      setBarcodeFeedback(null);
+    }, 3500);
+  };
 
-    const qtyToAdd = Math.max(1, Number(pickerQty) || 1);
+  const handleQuickAddProduct = (prod, qtyToAdd = 1) => {
+    if (!prod) return;
+    const safeQty = Math.max(1, Number(qtyToAdd) || 1);
 
     setItems((prev) => {
       const existingIdx = prev.findIndex((it) => it.product_id === prod.id);
       if (existingIdx >= 0) {
         return prev.map((it, idx) =>
-          idx === existingIdx ? { ...it, qty: it.qty + qtyToAdd } : it
+          idx === existingIdx ? { ...it, qty: it.qty + safeQty } : it
         );
       }
       return [
@@ -207,16 +257,48 @@ export function AdminOrderFormPage({
         {
           product_id: prod.id,
           name: prod.name,
-          qty: qtyToAdd,
+          qty: safeQty,
           price: Math.max(0, Number(prod.price) || 0),
           unit: prod.unit || 'pcs',
         },
       ];
     });
 
-    setSelectedProductId('');
-    setPickerQty(1);
     setErrorMessage('');
+    triggerFeedback('success', `${prod.name} ditambahkan (+${safeQty}).`);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const q = searchQuery.trim().toLowerCase();
+      if (!q) return;
+
+      // 1. Exact barcode match
+      let match = products.find((p) => p.barcode && p.barcode.toLowerCase() === q);
+      // 2. Exact name match
+      if (!match) {
+        match = products.find((p) => p.name.toLowerCase() === q);
+      }
+      // 3. Exact single search result
+      if (!match && filteredProducts.length === 1) {
+        match = filteredProducts[0];
+      }
+
+      if (match) {
+        handleQuickAddProduct(match, 1);
+        setSearchQuery('');
+        setIsSearchOpen(false);
+      } else {
+        triggerFeedback('error', `Produk "${searchQuery.trim()}" tidak ditemukan.`);
+      }
+    }
+  };
+
+  const handleBarcodeScanned = (matchedProduct) => {
+    handleQuickAddProduct(matchedProduct, 1);
+    setIsSearchOpen(false);
+    triggerFeedback('success', `Barcode cocok: ${matchedProduct.name} ditambahkan.`);
   };
 
   const handleUpdateItemQty = (index, newQty) => {
@@ -228,6 +310,18 @@ export function AdminOrderFormPage({
 
   const handleRemoveItem = (index) => {
     setItems((prev) => prev.filter((_, idx) => idx !== index));
+  };
+
+  const handleScrollToCustomerData = () => {
+    setIsCartSheetOpen(false);
+    const customerSection = document.getElementById('order-customer-section');
+    if (customerSection) {
+      customerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const input = document.getElementById('order-customer-name');
+      if (input) {
+        input.focus({ preventScroll: true });
+      }
+    }
   };
 
   const computedTotal = items.reduce((sum, it) => sum + it.qty * it.price, 0);
@@ -342,7 +436,10 @@ export function AdminOrderFormPage({
   const currentOrderNumber = order?.order_number || effectiveInitialOrder?.order_number;
 
   return (
-    <div className="space-y-5 max-w-5xl mx-auto" aria-label="Halaman Form Transaksi">
+    <div
+      className={`space-y-5 max-w-5xl mx-auto ${items.length > 0 ? 'pb-36 md:pb-24 lg:pb-0' : 'pb-16 lg:pb-0'}`}
+      aria-label="Halaman Form Transaksi"
+    >
       {/* Top Bar Navigation */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-4">
         <div className="flex items-center gap-3">
@@ -374,16 +471,27 @@ export function AdminOrderFormPage({
 
       <form id="order-form-page" onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Kolom Kiri: Produk Koperasi & Rincian Item (7 Cols) */}
+          {/* Kolom Kiri: Input Cari Produk & Daftar Item Pesanan (7 Cols) */}
           <div className="lg:col-span-7 space-y-4">
-            {/* Box 1: Tambah Produk dari Koperasi */}
-            <div className="rounded-xl border border-border bg-surface p-4 space-y-3 shadow-xs">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-text-2">
-                Pilih Produk Koperasi
-              </h2>
+            {/* Box 1: Pencarian Cepat & Scan Barcode Produk (Search-to-Add) */}
+            <div
+              ref={searchContainerRef}
+              className="relative rounded-xl border border-border bg-surface p-4 space-y-3 shadow-xs"
+            >
+              <div className="flex items-center justify-between border-b border-border pb-2.5">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-text-2">
+                  Pilih Produk Koperasi
+                </h2>
+                <span className="text-xs text-text-3 tabular-nums">
+                  <Num value={products.length} /> produk tersedia
+                </span>
+              </div>
 
               {loadingProducts ? (
-                <Skeleton className="h-11 w-full rounded-lg" />
+                <div className="space-y-2">
+                  <Skeleton className="h-11 w-full rounded-lg" />
+                  <Skeleton className="h-9 w-48 rounded-lg" />
+                </div>
               ) : products.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border p-4 text-center space-y-2">
                   <p className="text-xs text-text-3">
@@ -396,91 +504,284 @@ export function AdminOrderFormPage({
                   </Link>
                 </div>
               ) : (
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <div className="flex-1">
-                    <Select
-                      value={selectedProductId}
-                      onChange={(e) => setSelectedProductId(e.target.value)}
-                      className="min-h-11 w-full text-xs md:text-sm"
-                      aria-label="Pilih produk dari katalog"
-                    >
-                      <option value="">-- Pilih Produk dari Koperasi --</option>
-                      {products.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.name} — Rp {p.price?.toLocaleString('id-ID')} /{p.unit || 'pcs'}
-                        </option>
-                      ))}
-                    </Select>
-                  </div>
+                <div className="space-y-3">
+                  {/* Search Bar + Barcode Scanner Trigger */}
                   <div className="flex items-center gap-2">
-                    <div className="w-20">
-                      <Input
-                        type="number"
-                        min="1"
-                        value={pickerQty}
-                        onChange={(e) => setPickerQty(Math.max(1, Number(e.target.value) || 1))}
-                        className="min-h-11 text-xs tabular-nums text-center"
-                        aria-label="Jumlah produk"
+                    <div className="relative flex-1">
+                      <Search
+                        className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-3"
+                        aria-hidden="true"
                       />
+                      <Input
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          setIsSearchOpen(true);
+                        }}
+                        onFocus={() => setIsSearchOpen(true)}
+                        onKeyDown={handleSearchKeyDown}
+                        placeholder="Cari nama, barcode, atau kategori... (tekan Enter)"
+                        className="min-h-11 pl-9 pr-9 text-xs md:text-sm"
+                        aria-label="Pilih produk dari katalog"
+                      />
+                      {searchQuery && (
+                        <button
+                          type="button"
+                          onClick={() => setSearchQuery('')}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded p-1 text-text-3 hover:text-text"
+                          aria-label="Bersihkan pencarian"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      )}
                     </div>
                     <Button
                       type="button"
-                      variant="primary"
+                      variant="secondary"
                       size="sm"
-                      onClick={handleAddProductFromCatalog}
-                      disabled={!selectedProductId}
-                      className="min-h-11 shrink-0 font-semibold flex items-center gap-1.5"
+                      onClick={() => setIsBarcodeModalOpen(true)}
+                      className="min-h-11 shrink-0 px-3 font-semibold flex items-center gap-1.5"
+                      title="Pindai Barcode via Kamera"
+                      aria-label="Pindai barcode via kamera"
                     >
-                      <Plus className="h-4 w-4" aria-hidden="true" />
-                      <span>Tambah</span>
+                      <ScanBarcode className="h-4 w-4 text-primary-700" aria-hidden="true" />
+                      <span className="hidden sm:inline">Scan Barcode</span>
                     </Button>
                   </div>
+
+                  {/* Feedback Notification (Auto-dismiss) */}
+                  {barcodeFeedback && (
+                    <div
+                      role={barcodeFeedback.type === 'error' ? 'alert' : 'status'}
+                      className={`rounded-xl border p-2.5 text-xs font-semibold flex items-center justify-between ${
+                        barcodeFeedback.type === 'error'
+                          ? 'border-primary-700/20 bg-primary-50 text-primary-700'
+                          : 'border-ok-700/20 bg-ok-50 text-ok-700'
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        {barcodeFeedback.type === 'error' ? (
+                          <X className="h-4 w-4 shrink-0" />
+                        ) : (
+                          <CheckCircle2 className="h-4 w-4 shrink-0" />
+                        )}
+                        <span>{barcodeFeedback.message}</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setBarcodeFeedback(null)}
+                        className="text-text-3 hover:text-text p-1"
+                        aria-label="Tutup notifikasi"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Autocomplete / Quick Picker Suggestions Dropdown */}
+                  {isSearchOpen && (
+                    <div
+                      className="absolute left-0 right-0 top-full mt-1.5 z-30 max-h-80 overflow-y-auto rounded-xl border border-border bg-surface shadow-xl divide-y divide-border"
+                      role="listbox"
+                      aria-label="Saran produk"
+                    >
+                      {filteredProducts.length === 0 ? (
+                        <div className="p-4 text-center text-xs text-text-3">
+                          Produk "{searchQuery}" tidak ditemukan.
+                        </div>
+                      ) : (
+                        <>
+                          <div className="bg-surface-3/70 px-3 py-1.5 text-[11px] font-semibold text-text-3 flex items-center justify-between">
+                            <span>
+                              {searchQuery
+                                ? `Hasil Pencarian (${filteredProducts.length})`
+                                : `Pilihan Cepat (${Math.min(filteredProducts.length, 6)})`}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => setIsSearchOpen(false)}
+                              className="text-[11px] text-text-3 hover:text-text"
+                            >
+                              Tutup
+                            </button>
+                          </div>
+                          {(searchQuery
+                            ? filteredProducts.slice(0, 10)
+                            : filteredProducts.slice(0, 6)
+                          ).map((p) => {
+                            const catName = p.categories?.name || p.category_name;
+                            const isOutOfStock = p.stock_status === 'habis';
+                            const alreadyInCart = items.find((it) => it.product_id === p.id);
+
+                            return (
+                              <div
+                                key={p.id}
+                                onClick={() => {
+                                  handleQuickAddProduct(p, 1);
+                                  setSearchQuery('');
+                                  setIsSearchOpen(false);
+                                }}
+                                className={`p-3 flex items-center justify-between gap-3 hover:bg-surface-3 transition-colors cursor-pointer ${
+                                  isOutOfStock ? 'opacity-60' : ''
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-lg border border-border bg-surface-3 flex items-center justify-center">
+                                    {p.image_url ? (
+                                      <img
+                                        src={p.image_url}
+                                        alt=""
+                                        className="h-full w-full object-cover"
+                                        loading="lazy"
+                                      />
+                                    ) : (
+                                      <Package className="h-4 w-4 text-text-3" aria-hidden="true" />
+                                    )}
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="text-xs md:text-sm font-semibold text-text truncate">
+                                        {p.name}
+                                      </span>
+                                      {p.stock_status === 'ready' && (
+                                        <span className="rounded px-1.5 py-0.2 text-[10px] font-semibold bg-ok-50 text-ok-700">
+                                          Tersedia
+                                        </span>
+                                      )}
+                                      {p.stock_status === 'pre-order' && (
+                                        <span className="rounded px-1.5 py-0.2 text-[10px] font-semibold bg-warn-50 text-warn-700">
+                                          Pre-Order
+                                        </span>
+                                      )}
+                                      {p.stock_status === 'habis' && (
+                                        <span className="rounded px-1.5 py-0.2 text-[10px] font-semibold bg-mute-50 text-mute-700">
+                                          Habis
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[11px] text-text-3 mt-0.5">
+                                      {catName && <span>{catName}</span>}
+                                      {p.barcode && (
+                                        <span className="font-mono tabular-nums text-[10px]">
+                                          · {p.barcode}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 shrink-0">
+                                  <div className="text-right">
+                                    <Money
+                                      value={p.price}
+                                      className="text-xs font-bold text-text tabular-nums"
+                                    />
+                                    <span className="text-[10px] font-normal text-text-3 block">
+                                      /{p.unit || 'pcs'}
+                                    </span>
+                                  </div>
+                                  <Button
+                                    type="button"
+                                    variant="secondary"
+                                    size="sm"
+                                    className="min-h-8 px-2.5 text-xs font-semibold hover:border-primary-700 hover:text-primary-700"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleQuickAddProduct(p, 1);
+                                      setSearchQuery('');
+                                      setIsSearchOpen(false);
+                                    }}
+                                    aria-label={`Tambah ${p.name}`}
+                                  >
+                                    <Plus className="h-3.5 w-3.5" />
+                                    <span>{alreadyInCart ? `+${alreadyInCart.qty}` : 'Tambah'}</span>
+                                  </Button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* Box 2: Rincian Produk dalam Pesanan */}
+            {/* Box 2: Daftar Item Pesanan (Satu-satunya daftar produk di halaman) */}
             <div className="rounded-xl border border-border bg-surface p-4 space-y-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-border pb-2.5">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-text-2">
-                  Daftar Item ({items.length})
-                </h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-text-2">
+                    Daftar Item ({items.length})
+                  </h2>
+                  <span className="rounded-full bg-primary-50 px-2 py-0.5 text-[11px] font-bold text-primary-700 tabular-nums">
+                    <Num value={items.length} />
+                  </span>
+                </div>
                 <span className="text-xs text-text-3 font-medium">
                   Total: <Money value={computedTotal} className="font-bold text-primary-700" />
                 </span>
               </div>
 
               {items.length === 0 ? (
-                <div className="py-8 text-center text-xs text-text-3">
-                  Belum ada produk yang ditambahkan ke transaksi.
+                <div className="py-8 text-center text-xs text-text-3 border border-dashed border-border rounded-xl">
+                  Belum ada item pesanan. Ketik nama produk atau scan barcode di atas untuk menambah produk.
                 </div>
               ) : (
                 <div className="divide-y divide-border">
                   {items.map((it, idx) => {
                     const subtotal = it.qty * it.price;
+                    const prod = products.find((p) => p.id === it.product_id);
+                    const displayName =
+                      it.name ||
+                      it.product_name ||
+                      it.productName ||
+                      prod?.name ||
+                      'Produk';
+                    const displayUnit =
+                      it.unit ||
+                      prod?.unit ||
+                      'pcs';
+                    const displayImage = prod?.image_url;
+
                     return (
                       <div
                         key={it.product_id || idx}
                         className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                       >
-                        <div className="min-w-0 flex-1">
-                          <p className="text-xs md:text-sm font-semibold text-text">
-                            {it.name}
-                          </p>
-                          <p className="text-xs text-text-3 tabular-nums">
-                            <Money value={it.price} /> /{it.unit || 'pcs'}
-                          </p>
+                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                          <div className="h-9 w-9 shrink-0 overflow-hidden rounded-lg border border-border bg-surface-3 flex items-center justify-center">
+                            {displayImage ? (
+                              <img
+                                src={displayImage}
+                                alt=""
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Package className="h-4 w-4 text-text-3" aria-hidden="true" />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs md:text-sm font-semibold text-text">
+                              {displayName}
+                            </p>
+                            <p className="text-xs text-text-3 tabular-nums">
+                              <Money value={it.price} /> /{displayUnit}
+                            </p>
+                          </div>
                         </div>
 
                         <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-                          {/* Qty Stepper */}
+                          {/* Stepper */}
                           <div className="flex items-center gap-1 border border-border rounded-lg bg-surface-3/30 p-0.5">
                             <button
                               type="button"
                               onClick={() => handleUpdateItemQty(idx, Math.max(1, it.qty - 1))}
                               disabled={it.qty <= 1}
                               className="h-8 w-8 flex items-center justify-center rounded text-text-2 hover:bg-surface disabled:opacity-30 disabled:pointer-events-none"
-                              aria-label="Kurangi qty"
+                              aria-label={`Kurangi qty ${displayName}`}
                             >
                               <Minus className="h-3.5 w-3.5" />
                             </button>
@@ -491,7 +792,7 @@ export function AdminOrderFormPage({
                               type="button"
                               onClick={() => handleUpdateItemQty(idx, it.qty + 1)}
                               className="h-8 w-8 flex items-center justify-center rounded text-text-2 hover:bg-surface"
-                              aria-label="Tambah qty"
+                              aria-label={`Tambah qty ${displayName}`}
                             >
                               <Plus className="h-3.5 w-3.5" />
                             </button>
@@ -511,9 +812,9 @@ export function AdminOrderFormPage({
                             onClick={() => handleRemoveItem(idx)}
                             className="h-8 w-8 inline-flex items-center justify-center rounded text-text-3 hover:text-primary-700 hover:bg-primary-50 transition-colors"
                             title="Hapus produk"
+                            aria-label={`Hapus ${displayName}`}
                           >
                             <Trash2 className="h-4 w-4" aria-hidden="true" />
-                            <span className="sr-only">Hapus</span>
                           </button>
                         </div>
                       </div>
@@ -539,7 +840,7 @@ export function AdminOrderFormPage({
 
           {/* Kolom Kanan: Data Pemesan & Pengiriman (5 Cols) */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-xl border border-border bg-surface p-4 space-y-4 shadow-xs">
+            <div id="order-customer-section" className="rounded-xl border border-border bg-surface p-4 space-y-4 shadow-xs">
               <h2 className="text-xs font-bold uppercase tracking-wider text-text-2 border-b border-border pb-2.5">
                 Data Pemesan & Pengiriman
               </h2>
@@ -678,6 +979,182 @@ export function AdminOrderFormPage({
           </div>
         </div>
       </form>
+
+      {/* Floating Sticky Bottom Bar di Layar Mobile (< lg), ditempatkan di atas bottom nav admin (bottom-14 di mobile, bottom-0 di tablet) */}
+      {items.length > 0 && (
+        <aside
+          aria-label="Ringkasan belanja mengambang"
+          className="fixed bottom-14 md:bottom-0 left-0 right-0 z-40 border-t border-border bg-surface p-3 shadow-lg lg:hidden"
+        >
+          <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
+            <button
+              type="button"
+              onClick={() => setIsCartSheetOpen(true)}
+              className="flex items-center gap-2.5 min-w-0 text-left hover:opacity-80 transition-opacity"
+              aria-label="Buka rincian item pesanan"
+            >
+              <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-700">
+                <ShoppingBag className="h-5 w-5" aria-hidden="true" />
+                <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-700 px-1 text-[10px] font-bold text-white tabular-nums">
+                  <Num value={items.length} />
+                </span>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[11px] font-medium text-text-3">
+                  Total (<Num value={items.length} /> item)
+                </p>
+                <Money
+                  value={computedTotal}
+                  className="text-sm font-bold text-primary-700 tabular-nums block truncate"
+                />
+              </div>
+              <ChevronUp className="h-4 w-4 text-text-3 shrink-0" aria-hidden="true" />
+            </button>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsCartSheetOpen(true)}
+                className="min-h-11 px-3 text-xs font-semibold"
+              >
+                Lihat Item
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                size="sm"
+                onClick={handleScrollToCustomerData}
+                className="min-h-11 px-3.5 text-xs font-semibold flex items-center gap-1"
+              >
+                <span>Isi Data</span>
+              </Button>
+            </div>
+          </div>
+        </aside>
+      )}
+
+      {/* Mobile Bottom Sheet untuk Daftar Item Pesanan */}
+      <Sheet
+        open={isCartSheetOpen}
+        onClose={() => setIsCartSheetOpen(false)}
+        title={`Rincian Pesanan (${items.length} item)`}
+        footer={
+          <div className="space-y-2.5 w-full">
+            <div className="flex items-center justify-between text-xs font-semibold text-text border-t border-border pt-2.5">
+              <span>Total Pembayaran</span>
+              <Money
+                value={computedTotal}
+                className="text-base font-bold text-primary-700 tabular-nums"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                size="md"
+                onClick={() => setIsCartSheetOpen(false)}
+                className="min-h-11 flex-1 text-xs font-semibold"
+              >
+                Tambah Produk Lain
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                size="md"
+                onClick={handleScrollToCustomerData}
+                className="min-h-11 flex-1 text-xs font-semibold"
+              >
+                Lanjut Isi Data
+              </Button>
+            </div>
+          </div>
+        }
+      >
+        <div className="divide-y divide-border">
+          {items.map((it, idx) => {
+            const subtotal = it.qty * it.price;
+            const displayName =
+              it.name ||
+              it.product_name ||
+              it.productName ||
+              products.find((p) => p.id === it.product_id)?.name ||
+              'Produk';
+            const displayUnit =
+              it.unit ||
+              products.find((p) => p.id === it.product_id)?.unit ||
+              'pcs';
+
+            return (
+              <div
+                key={it.product_id || idx}
+                className="py-3 flex items-center justify-between gap-3"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs md:text-sm font-semibold text-text truncate">
+                    {displayName}
+                  </p>
+                  <p className="text-xs text-text-3 tabular-nums">
+                    <Money value={it.price} /> /{displayUnit}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  {/* Stepper */}
+                  <div className="flex items-center gap-1 border border-border rounded-lg bg-surface-3/30 p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => handleUpdateItemQty(idx, Math.max(1, it.qty - 1))}
+                      disabled={it.qty <= 1}
+                      className="h-9 w-9 flex items-center justify-center rounded text-text-2 hover:bg-surface disabled:opacity-30 disabled:pointer-events-none"
+                      aria-label={`Kurangi qty ${displayName}`}
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
+                    <span className="w-7 text-center text-xs font-bold tabular-nums text-text">
+                      <Num value={it.qty} />
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleUpdateItemQty(idx, it.qty + 1)}
+                      className="h-9 w-9 flex items-center justify-center rounded text-text-2 hover:bg-surface"
+                      aria-label={`Tambah qty ${displayName}`}
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="w-20 text-right">
+                    <Money
+                      value={subtotal}
+                      className="text-xs font-bold text-text tabular-nums"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveItem(idx)}
+                    className="h-9 w-9 inline-flex items-center justify-center rounded text-text-3 hover:text-primary-700 hover:bg-primary-50 transition-colors"
+                    title="Hapus produk"
+                    aria-label={`Hapus ${displayName}`}
+                  >
+                    <Trash2 className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Sheet>
+
+      {/* Barcode Scanner Modal via Kamera / Input Manual */}
+      <BarcodeScannerModal
+        open={isBarcodeModalOpen}
+        onClose={() => setIsBarcodeModalOpen(false)}
+        onScan={handleBarcodeScanned}
+        products={products}
+      />
     </div>
   );
 }

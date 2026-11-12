@@ -6,6 +6,7 @@ import {
   Star,
   Package,
   Check,
+  ScanBarcode,
 } from 'lucide-react';
 import {
   Button,
@@ -31,6 +32,7 @@ import { driveImageUrl } from '../lib/image';
 import { matchesProduct } from '../lib/search';
 import { useAuth } from './AuthContext';
 import { ProductFormSheet } from './ProductFormSheet';
+import { BarcodeScannerModal } from './BarcodeScannerModal';
 import {
   applyOptimisticProductPatch,
   rollbackOptimisticProduct,
@@ -93,6 +95,7 @@ export function AdminProductsPage({
 
   const [formOpen, setFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [isBarcodeSearchOpen, setIsBarcodeSearchOpen] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [isDeletingId, setIsDeletingId] = useState(null);
 
@@ -462,15 +465,30 @@ export function AdminProductsPage({
           isSuperAdmin ? 'md:grid-cols-4' : 'md:grid-cols-3'
         }`}
       >
-        <Input
-          aria-label="Cari produk"
-          placeholder="Cari produk..."
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setPage(1);
-          }}
-        />
+        <div className="flex items-center gap-1.5">
+          <Input
+            aria-label="Cari produk"
+            placeholder="Cari produk..."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(1);
+            }}
+            className="flex-1"
+          />
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsBarcodeSearchOpen(true)}
+            className="min-h-11 shrink-0 px-2.5 font-semibold flex items-center gap-1"
+            title="Pindai Barcode untuk Cari Produk"
+            aria-label="Pindai barcode untuk cari produk"
+          >
+            <ScanBarcode className="h-4 w-4 text-primary-700" aria-hidden="true" />
+            <span className="hidden sm:inline">Scan</span>
+          </Button>
+        </div>
         {isSuperAdmin && (
           <Select
             aria-label="Filter KDKMP"
@@ -1013,6 +1031,18 @@ export function AdminProductsPage({
           onSaved={handleProductSaved}
         />
       )}
+
+      {/* Modal Scanner Barcode untuk Pencarian Produk */}
+      <BarcodeScannerModal
+        open={isBarcodeSearchOpen}
+        onClose={() => setIsBarcodeSearchOpen(false)}
+        onScan={(scannedCode) => {
+          setSearchQuery(scannedCode);
+          setPage(1);
+        }}
+        mode="raw"
+        title="Pindai Barcode untuk Cari Produk"
+      />
     </div>
   );
 }

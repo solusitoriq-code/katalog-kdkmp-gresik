@@ -835,6 +835,32 @@ Keputusan baru:
 Sisa / blocker: Tidak ada
 Catatan untuk sesi berikut: Siap untuk deployment atau pengujian integrasi remote.
 
+### S14c · Peningkatan UX Pemilihan Produk, Barcode Scanner & Mobile Sticky Cart pada Form Transaksi · 2026-11-12
+Status: DONE
+File dibuat/diubah:
+- `src/admin/AdminOrderFormPage.jsx`
+- `src/admin/BarcodeScannerModal.jsx`
+- `src/admin/ProductFormSheet.jsx`
+- `src/lib/api.js`
+- `src/lib/demoData.js`
+- `src/admin/admin.test.jsx`
+- `supabase/migrations/0011_products_barcode.sql`
+- `PROGRESS.md`
+Verifikasi: build ✓ (`dist/assets/AdminApp-*.js` 208.72 KB / gzip 47.68 kB) · lint ✓ (0 errors) · test ✓ (120/120) · viewport 360/768/1024/1280 ✓ · grep gradient = 0
+Keputusan baru:
+- Mengganti native `<Select>` dropdown di `AdminOrderFormPage` dengan panel pemilihan produk adaptif: live search multi-atribut (nama, kategori, barcode, deskripsi), daftar item dengan thumbnail foto, badge status stok (`Tersedia`, `Pre-Order`, `Habis`), harga `<Money>`, dan tombol tambah instan.
+- Menerapkan arsitektur Search-to-Add Standar POS Kasir (0% Double Data): Menghapus daftar katalog statis 100 produk dari badan halaman form utama. Sebagai gantinya, bar pencarian & barcode scanner dilengkapi dropdown popover autocomplete dinamis (`Pilihan Cepat` / hasil live search) yang hanya muncul saat kasir mengetik/mencari produk.
+- Menghapus chip filter kategori horizontal dari form transaksi kasir untuk menghemat ruang vertikal layar mobile dan meminimalisir visual noise, karena pencarian teks sudah multi-atribut (ketik nama kategori otomatis menyaring produk kategori terkait).
+- Menjadikan `Daftar Item Pesanan` sebagai satu-satunya daftar produk di halaman (single source of truth): menampilkan item terpilih dengan foto thumbnail, nama produk, satuan, harga `<Money>`, stepper qty `[- qty +]`, subtotal, tombol hapus `Trash2`, dan total pembayaran, baik di mobile maupun desktop tanpa duplikasi tampilan.
+- Menambahkan tombol "Scan Barcode" kamera pada input `Barcode / Kode Produk (Opsional)` di form tambah/ubah produk (`ProductFormSheet.jsx`) menggunakan `BarcodeScannerModal` mode `raw`, serta tombol "Scan" di bar pencarian `/admin/produk` (`AdminProductsPage.jsx`) dengan dukungan pencarian barcode di `src/lib/search.js`.
+- Mendukung barcode scanner hardware (USB/Bluetooth) melalui tombol `Enter` pada input pencarian: mendeteksi kecocokan exact match barcode, otomatis menambahkan item ke pesanan dengan qty = 1, menampilkan banner feedback sukses, dan mengosongkan input pencarian untuk scan berikutnya.
+- Menambahkan modal pemindai kamera barcode (`BarcodeScannerModal`) menggunakan Web API `BarcodeDetector` (standar Chrome Android / desktop) dengan fallback input kode manual dan pembersihan stream kamera aman.
+- Menyediakan Floating Sticky Bottom Bar pada layar mobile (`lg:hidden`) saat keranjang berisi item (`bottom-14 md:bottom-0 z-40`) yang bertengger rapi di atas navigasi admin bawah: menampilkan total item & total nominal pembayaran (`<Money>`), tombol "Lihat Item" membuka Bottom `Sheet` rincian pesanan, serta tombol "Isi Data" yang melakukan scroll halus langsung ke form data pemesan (`#order-customer-section`).
+- Menyediakan fallback derivasi nama dan unit produk (`it.name || products.find(p => p.id === it.product_id)?.name || 'Produk'`) untuk menangani transaksi lama atau transaksi yang di-backfill dari `order_logs` yang tidak memiliki atribut `name` tersimpan secara mandiri.
+- Menambahkan migrasi database `0011_products_barcode.sql` untuk kolom `barcode VARCHAR(50)` berindeks pada tabel `products`, memperbarui RPC `get_village_catalog` dengan nama parameter identik (`p_kecamatan TEXT, p_desa TEXT`) guna mencegah PostgreSQL error 42P13, serta menambahkan input opsional `Barcode / Kode Produk` pada `ProductFormSheet.jsx`.
+Sisa / blocker: Tidak ada
+Catatan untuk sesi berikut: Jalankan migrasi `0011_products_barcode.sql` di Supabase SQL Editor jika mengaktifkan kolom barcode di remote database.
+
 ## Log Bug
 
 | Tanggal | Route | Gejala | Akar masalah | Status |
@@ -842,6 +868,7 @@ Catatan untuk sesi berikut: Siap untuk deployment atau pengujian integrasi remot
 | 2026-11-09 | `/admin/produk` | Tombol `Batal` & `Simpan Produk` pada modal Tambah/Ubah Produk di desktop (`lg`) melayang di tengah modal dan menutupi form | Class `sticky bottom-0` pada footer `Sheet` melekat ke koordinat viewport sebelum transform `lg:-translate-y-1/2` karena kontainer dialog belum `overflow-hidden` | DONE (`shrink-0` pada header/footer + `min-h-0 flex-1 overflow-y-auto` pada body + `overflow-hidden` pada dialog) |
 | 2026-11-11 | `/admin/produk` | Error `new row violates row-level security policy for table "products"` saat akun owner menambah/mengubah link gambar atau data produk berkategori | Policy RLS `products_all_village_admin` masih mengecek `c.village_id = products.village_id`, sedangkan pada S11b kategori telah bermigrasi menjadi Master Kategori Global (`village_id` bernilai `NULL` atau lintas desa) | DONE (Migrasi `0009_fix_products_rls_global_categories.sql`, update `0002_rls.sql`, & penyesuaian `src/lib/api.js`) |
 | 2026-11-11 | `/admin/transaksi` | Transaksi lama muncul di Ringkasan tapi kosong di list `/admin/transaksi` | Halaman Ringkasan membaca log analitik `order_logs` (S12), sedangkan list Transaksi membaca tabel baru `orders` (S14) yang belum tersinkronisasi/di-backfill | DONE (Sinkronisasi otomatis `order_logs` ke `orders` di `api.js` & `demoData.js`, serta query backfill SQL di `0010_orders_crud.sql`) |
+| 2026-11-12 | `/admin/transaksi/*` | Floating sticky bar ringkasan item belanja di mobile tidak terlihat | Floating bar berada di koordinat `bottom-0 z-30` sehingga tertutup sepenuhnya oleh Navigasi Bawah Admin (`AdminLayout.jsx`) yang juga memakai `fixed bottom-0 z-30` setinggi 56px (`h-14`) | DONE (Mengubah posisi floating bar menjadi `bottom-14 md:bottom-0 z-40` dan menambah padding bawah halaman `pb-36 md:pb-24 lg:pb-0`) |
 
 ## Known Limitation
 

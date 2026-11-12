@@ -736,6 +736,7 @@ function normalizeProductRow(row) {
       (villageObj?.name ? `KDKMP Desa ${villageObj.name}` : null),
     village_name: row.village_name ?? villageObj?.name ?? null,
     name: row.name,
+    barcode: row.barcode ?? null,
     description: row.description ?? null,
     price: Number(row.price ?? 0),
     original_price:
@@ -1187,7 +1188,7 @@ export async function getAdminProducts(
   let query = supabase
     .from('products')
     .select(
-      'id, village_id, category_id, name, description, price, original_price, unit, stock_status, image_url, is_featured, sort_order, updated_at, categories(id, name), villages(id, name, business_name)'
+      'id, village_id, category_id, name, barcode, description, price, original_price, unit, stock_status, image_url, is_featured, sort_order, updated_at, categories(id, name), villages(id, name, business_name)'
     );
 
   if (vid) {
@@ -1398,6 +1399,11 @@ function validateAndSanitizeProductInput(payload, { isPartial = false } = {}) {
     out.category_id = cid || null;
   }
 
+  if (!isPartial || payload.barcode !== undefined) {
+    const rawBarcode = String(payload.barcode ?? '').trim();
+    out.barcode = rawBarcode || null;
+  }
+
   if (!isPartial || payload.description !== undefined) {
     const desc = String(payload.description ?? '').trim();
     out.description = desc || null;
@@ -1455,6 +1461,7 @@ export async function createAdminProduct(
       category_id: sanitized.category_id,
       category_name: categoryName,
       name: sanitized.name,
+      barcode: sanitized.barcode,
       description: sanitized.description,
       price: sanitized.price,
       original_price: sanitized.original_price,
@@ -1471,22 +1478,27 @@ export async function createAdminProduct(
     return { ...created };
   }
 
+  const insertPayload = {
+    village_id: vid,
+    category_id: sanitized.category_id,
+    name: sanitized.name,
+    description: sanitized.description,
+    price: sanitized.price,
+    original_price: sanitized.original_price,
+    unit: sanitized.unit,
+    stock_status: sanitized.stock_status,
+    image_url: sanitized.image_url,
+    is_featured: sanitized.is_featured,
+  };
+  if (sanitized.barcode !== undefined) {
+    insertPayload.barcode = sanitized.barcode;
+  }
+
   const { data, error } = await supabase
     .from('products')
-    .insert({
-      village_id: vid,
-      category_id: sanitized.category_id,
-      name: sanitized.name,
-      description: sanitized.description,
-      price: sanitized.price,
-      original_price: sanitized.original_price,
-      unit: sanitized.unit,
-      stock_status: sanitized.stock_status,
-      image_url: sanitized.image_url,
-      is_featured: sanitized.is_featured,
-    })
+    .insert(insertPayload)
     .select(
-      'id, village_id, category_id, name, description, price, original_price, unit, stock_status, image_url, is_featured, sort_order, updated_at, categories(id, name)'
+      'id, village_id, category_id, name, barcode, description, price, original_price, unit, stock_status, image_url, is_featured, sort_order, updated_at, categories(id, name)'
     )
     .single();
 
