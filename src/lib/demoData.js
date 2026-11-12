@@ -792,6 +792,7 @@ export function resetDemoAdminData() {
   };
   demoStorageObjects = new Map();
   resetDemoOrderLogs();
+  resetDemoOrders();
 }
 
 export const DEMO_CATALOGS = {
@@ -1888,6 +1889,469 @@ export function getDemoVillageStats(
     by_subdistrict: bySubdistrict,
   };
 }
+
+// -------------------------------------------------------------
+// S14: CRUD TRANSAKSI / ORDERS (DEMO DATA)
+// -------------------------------------------------------------
+
+export const DEMO_ORDERS_KEY = 'kdkmp:demo_orders';
+export const ORDER_STATUSES = ['pending', 'processing', 'completed', 'cancelled'];
+
+export function generateInitialDemoOrders(baseDate = new Date()) {
+  const nowMs = baseDate.getTime();
+  const dayMs = 24 * 60 * 60 * 1000;
+
+  const pBerasPandan = GOLOKAN_PRODUCTS[0];
+  const pBerasIR64 = GOLOKAN_PRODUCTS[1];
+  const pTelurAyam = GOLOKAN_PRODUCTS[2];
+  const pMinyak2L = GOLOKAN_PRODUCTS[3];
+  const pGula1kg = GOLOKAN_PRODUCTS[4];
+
+  const pRojolele = SUKOREJO_PRODUCTS[0];
+  const pMinyakKita = SUKOREJO_PRODUCTS[3];
+
+  const rawOrders = [
+    {
+      id: 'order-demo-1',
+      order_number: 'ORD-20261111-001',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Ibu Siti Aminah',
+      customer_phone: '081234567890',
+      customer_address: 'RT 03 RW 02 No. 15, Dusun Krajan',
+      delivery_method: 'Diantar',
+      payment_method: 'COD',
+      items: [
+        { product_id: pBerasPandan.id, name: pBerasPandan.name, qty: 1, price: pBerasPandan.price, unit: pBerasPandan.unit },
+        { product_id: pMinyak2L.id, name: pMinyak2L.name, qty: 1, price: pMinyak2L.price, unit: pMinyak2L.unit },
+      ],
+      note: 'Tolong diantar sebelum jam 12 siang',
+      status: 'pending',
+      daysAgo: 0,
+      hoursAgo: 1,
+    },
+    {
+      id: 'order-demo-2',
+      order_number: 'ORD-20261111-002',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Pak Budi Santoso',
+      customer_phone: '081398765432',
+      customer_address: 'RT 01 RW 01 Depan Masjid Jami',
+      delivery_method: 'Ambil di Koperasi',
+      payment_method: 'Transfer-QRIS',
+      items: [
+        { product_id: pTelurAyam.id, name: pTelurAyam.name, qty: 2, price: pTelurAyam.price, unit: pTelurAyam.unit },
+        { product_id: pGula1kg.id, name: pGula1kg.name, qty: 1, price: pGula1kg.price, unit: pGula1kg.unit },
+      ],
+      note: '',
+      status: 'processing',
+      daysAgo: 0,
+      hoursAgo: 3,
+    },
+    {
+      id: 'order-demo-3',
+      order_number: 'ORD-20261110-003',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Ibu Rahmawati',
+      customer_phone: '082155554321',
+      customer_address: 'Dusun Golokan Krajan Gang 2 No. 8',
+      delivery_method: 'Diantar',
+      payment_method: 'COD',
+      items: [
+        { product_id: pMinyak2L.id, name: pMinyak2L.name, qty: 2, price: pMinyak2L.price, unit: pMinyak2L.unit },
+      ],
+      note: 'Titip di teras jika belum ada orang',
+      status: 'completed',
+      daysAgo: 1,
+      hoursAgo: 4,
+    },
+    {
+      id: 'order-demo-4',
+      order_number: 'ORD-20261109-004',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Pak Joko Susilo',
+      customer_phone: '085611223344',
+      customer_address: 'RT 04 RW 02 Gang Mawar',
+      delivery_method: 'Diantar',
+      payment_method: 'COD',
+      items: [
+        { product_id: pBerasIR64.id, name: pBerasIR64.name, qty: 1, price: pBerasIR64.price, unit: pBerasIR64.unit },
+      ],
+      note: 'Dibatalkan pembeli via konfirmasi WhatsApp',
+      status: 'cancelled',
+      daysAgo: 2,
+      hoursAgo: 6,
+    },
+    {
+      id: 'order-demo-5',
+      order_number: 'ORD-20261111-005',
+      village_id: SUKOREJO_VILLAGE_ID,
+      customer_name: 'Ibu Dewi Sartika',
+      customer_phone: '081288997766',
+      customer_address: 'Dusun Sukorejo Timur RT 02 RW 01',
+      delivery_method: 'Diantar',
+      payment_method: 'COD',
+      items: [
+        { product_id: pRojolele.id, name: pRojolele.name, qty: 1, price: pRojolele.price, unit: pRojolele.unit },
+      ],
+      note: '',
+      status: 'pending',
+      daysAgo: 0,
+      hoursAgo: 2,
+    },
+    {
+      id: 'order-demo-6',
+      order_number: 'ORD-20261110-006',
+      village_id: SUKOREJO_VILLAGE_ID,
+      customer_name: 'Pak Agus Setiawan',
+      customer_phone: '081344556677',
+      customer_address: 'RT 05 RW 01 Barat Lapangan',
+      delivery_method: 'Ambil di Koperasi',
+      payment_method: 'Transfer-QRIS',
+      items: [
+        { product_id: pMinyakKita.id, name: pMinyakKita.name, qty: 3, price: pMinyakKita.price, unit: pMinyakKita.unit },
+      ],
+      note: 'Diambil sore hari jam 5',
+      status: 'completed',
+      daysAgo: 1,
+      hoursAgo: 5,
+    },
+    {
+      id: 'order-demo-7',
+      order_number: 'ORD-20261108-007',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Ibu Nurul Hidayah',
+      customer_phone: '085799881122',
+      customer_address: 'RT 02 RW 03 Dekat Balai Desa',
+      delivery_method: 'Diantar',
+      payment_method: 'COD',
+      items: [
+        { product_id: pBerasPandan.id, name: pBerasPandan.name, qty: 2, price: pBerasPandan.price, unit: pBerasPandan.unit },
+      ],
+      note: '',
+      status: 'completed',
+      daysAgo: 3,
+      hoursAgo: 7,
+    },
+    {
+      id: 'order-demo-8',
+      order_number: 'ORD-20261107-008',
+      village_id: GOLOKAN_VILLAGE_ID,
+      customer_name: 'Pak Slamet Riyadi',
+      customer_phone: '082233445566',
+      customer_address: 'RT 01 RW 02 Depan Kantor Pos',
+      delivery_method: 'Diantar',
+      payment_method: 'Transfer-QRIS',
+      items: [
+        { product_id: pTelurAyam.id, name: pTelurAyam.name, qty: 3, price: pTelurAyam.price, unit: pTelurAyam.unit },
+      ],
+      note: '',
+      status: 'completed',
+      daysAgo: 4,
+      hoursAgo: 2,
+    },
+  ];
+
+  return rawOrders.map((o) => {
+    const timestamp = new Date(nowMs - o.daysAgo * dayMs - o.hoursAgo * 3600 * 1000).toISOString();
+    const total = o.items.reduce((sum, it) => sum + it.qty * it.price, 0);
+    return {
+      id: o.id,
+      order_number: o.order_number,
+      village_id: o.village_id,
+      customer_name: o.customer_name,
+      customer_phone: o.customer_phone,
+      customer_address: o.customer_address,
+      delivery_method: o.delivery_method,
+      payment_method: o.payment_method,
+      items: o.items,
+      items_count: o.items.length,
+      total,
+      note: o.note,
+      status: o.status,
+      created_at: timestamp,
+      updated_at: timestamp,
+    };
+  });
+}
+
+let demoOrders = null;
+
+function readPersistedDemoOrders() {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const raw = window.localStorage.getItem(DEMO_ORDERS_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
+function writePersistedDemoOrders(orders) {
+  demoOrders = orders;
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      if (orders) {
+        window.localStorage.setItem(DEMO_ORDERS_KEY, JSON.stringify(orders));
+      } else {
+        window.localStorage.removeItem(DEMO_ORDERS_KEY);
+      }
+    }
+  } catch {
+    // ignore
+  }
+}
+
+export function getDemoOrders({
+  villageId = null,
+  status = 'all',
+  search = '',
+  isSuperAdmin = false,
+} = {}) {
+  if (!demoOrders) {
+    const persisted = readPersistedDemoOrders();
+    demoOrders = persisted || generateInitialDemoOrders();
+
+    // Sinkronisasi data awal transaksi terdahulu dari order_logs (yang muncul di Ringkasan)
+    const logs = getDemoOrderLogs();
+    const existingOrderIds = new Set(demoOrders.map((o) => o.id));
+    let hasNew = false;
+    for (const log of logs) {
+      if (!existingOrderIds.has(log.id)) {
+        const dt = log.created_at ? new Date(log.created_at) : new Date();
+        const dateStr = dt.toISOString().slice(0, 10).replace(/-/g, '');
+        const code = String(log.id).slice(-4).toUpperCase();
+        demoOrders.push({
+          id: log.id,
+          order_number: `ORD-${dateStr}-${code}`,
+          village_id: log.village_id,
+          customer_name: 'Pelanggan WA',
+          customer_phone: '',
+          customer_address: log.delivery_method === 'Diantar' ? 'Alamat via WhatsApp' : '',
+          delivery_method: log.delivery_method || 'Diantar',
+          payment_method: log.payment_method || 'COD',
+          items: log.items || [],
+          items_count: log.items_count || 1,
+          total: log.total || 0,
+          note: 'Riwayat checkout WhatsApp',
+          status: 'pending',
+          created_at: log.created_at,
+          updated_at: log.created_at,
+        });
+        existingOrderIds.add(log.id);
+        hasNew = true;
+      }
+    }
+    if (hasNew) {
+      writePersistedDemoOrders(demoOrders);
+    }
+  }
+
+  let list = [...demoOrders];
+
+  // Isolasi Koperasi: Jika bukan Super Admin atau jika villageId ditentukan
+  if (!isSuperAdmin) {
+    if (!villageId) return [];
+    list = list.filter((o) => o.village_id === villageId);
+  } else if (villageId) {
+    list = list.filter((o) => o.village_id === villageId);
+  }
+
+  // Filter status
+  if (status && status !== 'all') {
+    list = list.filter((o) => o.status === status);
+  }
+
+  // Filter search
+  if (search && String(search).trim()) {
+    const q = String(search).trim().toLowerCase();
+    list = list.filter(
+      (o) =>
+        o.customer_name.toLowerCase().includes(q) ||
+        o.order_number.toLowerCase().includes(q) ||
+        (o.customer_phone && o.customer_phone.includes(q))
+    );
+  }
+
+  // Urutkan tanggal terbaru
+  return list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+}
+
+export function createDemoOrder({
+  villageId,
+  customerName,
+  customerPhone = '',
+  customerAddress = '',
+  deliveryMethod = 'Diantar',
+  paymentMethod = 'COD',
+  items = [],
+  itemsCount,
+  total,
+  note = '',
+  status = 'pending',
+  orderNumber,
+}) {
+  if (!villageId) {
+    throw new Error('ID Koperasi wajib diisi.');
+  }
+  if (!customerName || !String(customerName).trim()) {
+    throw new Error('Nama pemesan wajib diisi.');
+  }
+
+  const safeItems = Array.isArray(items)
+    ? items.map((it) => ({
+        product_id: String(it.product_id ?? it.productId ?? it.id ?? '').trim(),
+        name: String(it.name || 'Produk').trim(),
+        qty: Math.max(1, Math.round(Number(it.qty) || 1)),
+        price: Math.max(0, Math.round(Number(it.price) || 0)),
+        unit: String(it.unit || 'pcs').trim(),
+      }))
+    : [];
+
+  const computedTotal = total !== undefined
+    ? Math.max(0, Math.round(Number(total) || 0))
+    : safeItems.reduce((sum, it) => sum + it.qty * it.price, 0);
+
+  const safeCount = itemsCount || safeItems.length || 1;
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const randCode = Math.random().toString(36).substring(2, 6).toUpperCase();
+  const num = orderNumber || `ORD-${dateStr}-${randCode}`;
+
+  const newOrder = {
+    id: `order-demo-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    order_number: num,
+    village_id: String(villageId).trim(),
+    customer_name: String(customerName).trim(),
+    customer_phone: String(customerPhone || '').trim(),
+    customer_address: String(customerAddress || '').trim(),
+    delivery_method: String(deliveryMethod || 'Diantar').trim(),
+    payment_method: String(paymentMethod || 'COD').trim(),
+    items: safeItems,
+    items_count: safeCount,
+    total: computedTotal,
+    note: String(note || '').trim(),
+    status: ORDER_STATUSES.includes(status) ? status : 'pending',
+    created_at: now.toISOString(),
+    updated_at: now.toISOString(),
+  };
+
+  const current = getDemoOrders({ isSuperAdmin: true });
+  const next = [newOrder, ...current];
+  writePersistedDemoOrders(next);
+  return newOrder;
+}
+
+export function getDemoOrderById(
+  orderId,
+  { isSuperAdmin = false, villageId = null } = {}
+) {
+  if (!orderId) return null;
+  const all = getDemoOrders({ isSuperAdmin: true });
+  const found = all.find((o) => o.id === orderId);
+  if (!found) return null;
+  if (!isSuperAdmin && villageId && found.village_id !== villageId) {
+    return null;
+  }
+  return found;
+}
+
+export function updateDemoOrderStatus(
+  orderId,
+  status,
+  { isSuperAdmin = false, villageId = null } = {}
+) {
+  if (!ORDER_STATUSES.includes(status)) {
+    throw new Error(`Status transaksi tidak valid: ${status}`);
+  }
+
+  const all = getDemoOrders({ isSuperAdmin: true });
+  const index = all.findIndex((o) => o.id === orderId);
+  if (index === -1) {
+    throw new Error('Transaksi tidak ditemukan.');
+  }
+
+  const existing = all[index];
+  if (!isSuperAdmin && villageId && existing.village_id !== villageId) {
+    throw new Error('Akses ditolak. Manager hanya dapat mengelola transaksi koperasinya.');
+  }
+
+  const updated = {
+    ...existing,
+    status,
+    updated_at: new Date().toISOString(),
+  };
+
+  const next = [...all];
+  next[index] = updated;
+  writePersistedDemoOrders(next);
+  return updated;
+}
+
+export function updateDemoOrder(
+  orderId,
+  patch = {},
+  { isSuperAdmin = false, villageId = null } = {}
+) {
+  const all = getDemoOrders({ isSuperAdmin: true });
+  const index = all.findIndex((o) => o.id === orderId);
+  if (index === -1) {
+    throw new Error('Transaksi tidak ditemukan.');
+  }
+
+  const existing = all[index];
+  if (!isSuperAdmin && villageId && existing.village_id !== villageId) {
+    throw new Error('Akses ditolak. Manager hanya dapat mengelola transaksi koperasinya.');
+  }
+
+  const updated = {
+    ...existing,
+    ...patch,
+    updated_at: new Date().toISOString(),
+  };
+
+  const next = [...all];
+  next[index] = updated;
+  writePersistedDemoOrders(next);
+  return updated;
+}
+
+export function deleteDemoOrder(
+  orderId,
+  { isSuperAdmin = false, villageId = null } = {}
+) {
+  const all = getDemoOrders({ isSuperAdmin: true });
+  const existing = all.find((o) => o.id === orderId);
+  if (!existing) {
+    throw new Error('Transaksi tidak ditemukan.');
+  }
+
+  if (!isSuperAdmin && villageId && existing.village_id !== villageId) {
+    throw new Error('Akses ditolak. Manager hanya dapat menghapus transaksi koperasinya.');
+  }
+
+  const next = all.filter((o) => o.id !== orderId);
+  writePersistedDemoOrders(next);
+
+  // Jika order berasal dari order_logs, hapus juga dari demoOrderLogs agar tidak ter-resinkronisasi
+  const allLogs = getDemoOrderLogs();
+  if (allLogs.some((l) => l.id === orderId)) {
+    const nextLogs = allLogs.filter((l) => l.id !== orderId);
+    writePersistedDemoOrderLogs(nextLogs);
+  }
+
+  return { success: true };
+}
+
+export function resetDemoOrders() {
+  writePersistedDemoOrders(null);
+  demoOrders = generateInitialDemoOrders();
+  return demoOrders;
+}
+
 
 
 

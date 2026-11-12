@@ -38,6 +38,14 @@ import {
   moveDemoProductUnit,
   recordDemoOrderLog,
   getDemoVillageStats,
+  getDemoOrders,
+  getDemoOrderById,
+  createDemoOrder,
+  updateDemoOrderStatus,
+  updateDemoOrder,
+  deleteDemoOrder,
+  resetDemoOrders,
+  ORDER_STATUSES,
   SUPER_ADMIN_USER_ID,
 } from './demoData';
 import { isReservedSlug } from '../config/reservedSlugs';
@@ -2975,10 +2983,377 @@ export async function getVillageStats(villageId, days = 7, options = {}) {
   return data;
 }
 
+// -------------------------------------------------------------
+// S14: CRUD TRANSAKSI / ORDERS API
+// -------------------------------------------------------------
+
+export async function createOrder(
+  {
+    villageId,
+    customerName,
+    customerPhone = '',
+    customerAddress = '',
+    deliveryMethod = 'Diantar',
+    paymentMethod = 'COD',
+    items = [],
+    itemsCount,
+    total,
+    note = '',
+    status = 'pending',
+  },
+  options = {}
+) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  if (!villageId) return null;
+
+  const safeItems = Array.isArray(items)
+    ? items.map((it) => ({
+        product_id: String(it.product_id ?? it.productId ?? it.id ?? '').trim(),
+        name: String(it.name || 'Produk').trim(),
+        qty: Math.max(1, Math.round(Number(it.qty) || 1)),
+        price: Math.max(0, Math.round(Number(it.price) || 0)),
+        unit: String(it.unit || 'pcs').trim(),
+      }))
+    : [];
+
+  const safeTotal = total !== undefined
+    ? Math.max(0, Math.round(Number(total) || 0))
+    : safeItems.reduce((sum, it) => sum + it.qty * it.price, 0);
+
+  const safeCount = Math.min(100, Math.max(1, Number(itemsCount) || safeItems.length || 1));
+  const safeDelivery = String(deliveryMethod || 'Diantar').trim();
+  const safePayment = String(paymentMethod || 'COD').trim();
+  const safeName = String(customerName || '').trim();
+  const safePhone = String(customerPhone || '').trim();
+  const safeAddress = String(customerAddress || '').trim();
+  const safeNote = String(note || '').trim();
+
+  // Sinkronisasi fire-and-forget ke order_logs untuk analitik S12
+  try {
+    recordOrderLog(
+      {
+        villageId,
+        items: safeItems,
+        itemsCount: safeCount,
+        total: safeTotal,
+        deliveryMethod: safeDelivery,
+        paymentMethod: safePayment,
+      },
+      { isDemo }
+    ).catch(() => {});
+  } catch {
+    // ignore
+  }
+
+  if (isDemo) {
+    const created = createDemoOrder({
+      villageId,
+      customerName: safeName,
+      customerPhone: safePhone,
+      customerAddress: safeAddress,
+      deliveryMethod: safeDelivery,
+      paymentMethod: safePayment,
+      items: safeItems,
+      itemsCount: safeCount,
+      total: safeTotal,
+      note: safeNote,
+      status,
+    });
+    invalidateCache();
+    return created;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('orders')
+      .insert({
+        village_id: villageId,
+        customer_name: safeName,
+        customer_phone: safePhone || null,
+        customer_address: safeAddress || null,
+        delivery_method: safeDelivery,
+        payment_method: safePayment,
+        items: safeItems,
+        items_count: safeCount,
+        total: safeTotal,
+        note: safeNote || null,
+        status: ORDER_STATUSES.includes(status) ? status : 'pending',
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.warn('Gagal menyimpan pesanan:', error.message);
+      return null;
+    }
+    invalidateCache();
+    return data;
+  } catch (err) {
+    console.warn('Gagal menyimpan pesanan:', err?.message || err);
+    return null;
+  }
+}
+
+export async function getAdminOrders(
+  {
+    villageId = null,
+    status = 'all',
+    search = '',
+    page = 1,
+    pageSize = 10,
+    isSuperAdmin = false,
+  } = {},
+  options = {}
+) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  const safePage = Math.max(1, Number(page) || 1);
+  const safePageSize = Math.max(1, Math.min(100, Number(pageSize) || 10));
+
+  if (isDemo) {
+    const all = getDemoOrders({
+      villageId,
+      status,
+      search,
+      isSuperAdmin,
+    });
+    const total = all.length;
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize));
+    const start = (safePage - 1) * safePageSize;
+    const paginated = all.slice(start, start + safePageSize);
+
+    return {
+      orders: paginated,
+      total,
+      page: safePage,
+      totalPages,
+    };
+  }
+
+  let query = supabase
+    .from('orders')
+    .select('*, villages(id, name, business_name)', { count: 'exact' });
+
+  if (!isSuperAdmin && villageId) {
+    query = query.eq('village_id', villageId);
+  } else if (villageId) {
+    query = query.eq('village_id', villageId);
+  }
+
+  if (status && status !== 'all') {
+    query = query.eq('status', status);
+  }
+
+  if (search && String(search).trim()) {
+    const term = `%${String(search).trim()}%`;
+    query = query.or(`customer_name.ilike.${term},order_number.ilike.${term},customer_phone.ilike.${term}`);
+  }
+
+  const start = (safePage - 1) * safePageSize;
+  const end = start + safePageSize - 1;
+
+  query = query.order('created_at', { ascending: false }).range(start, end);
+
+  const { data, count, error } = await query;
+  if (error) {
+    throw new Error(error.message || 'Gagal memuat daftar transaksi.');
+  }
+
+  let total = count || 0;
+  let finalOrders = data || [];
+
+  // Sinkronisasi otomatis data transaksi terdahulu dari order_logs jika tabel orders masih kosong
+  if (total === 0 && !search && status === 'all') {
+    try {
+      let logQuery = supabase.from('order_logs').select('*');
+      if (!isSuperAdmin && villageId) {
+        logQuery = logQuery.eq('village_id', villageId);
+      }
+      const { data: oldLogs } = await logQuery;
+      if (oldLogs && oldLogs.length > 0) {
+        const backfillRows = oldLogs.map((ol) => ({
+          id: ol.id,
+          order_number: `ORD-${(ol.created_at || new Date().toISOString()).slice(0, 10).replace(/-/g, '')}-${String(ol.id).slice(-4).toUpperCase()}`,
+          village_id: ol.village_id,
+          customer_name: 'Pelanggan WA',
+          customer_phone: null,
+          customer_address: ol.delivery_method === 'Diantar' ? 'Alamat via WhatsApp' : null,
+          delivery_method: ol.delivery_method || 'Diantar',
+          payment_method: ol.payment_method || 'COD',
+          items: ol.items || [],
+          items_count: ol.items_count || 1,
+          total: ol.total || 0,
+          note: 'Riwayat checkout WhatsApp',
+          status: 'pending',
+          created_at: ol.created_at,
+          updated_at: ol.created_at,
+        }));
+
+        await supabase.from('orders').upsert(backfillRows, { onConflict: 'id', ignoreDuplicates: true });
+
+        const recheck = await query;
+        if (recheck.data && recheck.data.length > 0) {
+          finalOrders = recheck.data;
+          total = recheck.count || recheck.data.length;
+        }
+      }
+    } catch {
+      // Abaikan jika order_logs tidak dapat diakses atau gagal sinkronisasi otomatis
+    }
+  }
+
+  const totalPages = Math.max(1, Math.ceil(total / safePageSize));
+
+  return {
+    orders: finalOrders,
+    total,
+    page: safePage,
+    totalPages,
+  };
+}
+
+export async function getAdminOrderById(orderId, options = {}) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  const isSuperAdmin = Boolean(options.isSuperAdmin);
+  const villageId = options.villageId || null;
+
+  if (!orderId) return null;
+
+  if (isDemo) {
+    return getDemoOrderById(orderId, { isSuperAdmin, villageId });
+  }
+
+  let query = supabase
+    .from('orders')
+    .select('*, villages(id, name, business_name)')
+    .eq('id', orderId);
+
+  if (!isSuperAdmin && villageId) {
+    query = query.eq('village_id', villageId);
+  }
+
+  const { data, error } = await query.single();
+  if (error || !data) return null;
+
+  return {
+    ...data,
+    village_name: data.villages?.business_name || data.villages?.name || '',
+  };
+}
+
+export async function updateAdminOrderStatus(
+  orderId,
+  status,
+  options = {}
+) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  const isSuperAdmin = Boolean(options.isSuperAdmin);
+  const villageId = options.villageId || null;
+
+  if (!orderId) {
+    throw new Error('ID transaksi wajib diisi.');
+  }
+
+  if (isDemo) {
+    const updated = updateDemoOrderStatus(orderId, status, {
+      isSuperAdmin,
+      villageId,
+    });
+    invalidateCache();
+    return updated;
+  }
+
+  const { data, error } = await supabase
+    .from('orders')
+    .update({ status })
+    .eq('id', orderId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(error.message || 'Gagal memperbarui status transaksi.');
+  }
+
+  invalidateCache();
+  return data;
+}
+
+export async function updateAdminOrder(
+  orderId,
+  patch = {},
+  options = {}
+) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  const isSuperAdmin = Boolean(options.isSuperAdmin);
+  const villageId = options.villageId || null;
+
+  if (!orderId) {
+    throw new Error('ID transaksi wajib diisi.');
+  }
+
+  if (isDemo) {
+    const updated = updateDemoOrder(orderId, patch, {
+      isSuperAdmin,
+      villageId,
+    });
+    invalidateCache();
+    return updated;
+  }
+
+  const { data, error } = await supabase
+    .from('orders')
+    .update(patch)
+    .eq('id', orderId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(error.message || 'Gagal memperbarui transaksi.');
+  }
+
+  invalidateCache();
+  return data;
+}
+
+export async function deleteAdminOrder(
+  orderId,
+  options = {}
+) {
+  const isDemo = options.isDemo ?? isDemoMode();
+  const isSuperAdmin = Boolean(options.isSuperAdmin);
+  const villageId = options.villageId || null;
+
+  if (!orderId) {
+    throw new Error('ID transaksi wajib diisi.');
+  }
+
+  if (isDemo) {
+    const res = deleteDemoOrder(orderId, {
+      isSuperAdmin,
+      villageId,
+    });
+    invalidateCache();
+    return res;
+  }
+
+  const { error } = await supabase
+    .from('orders')
+    .delete()
+    .eq('id', orderId);
+
+  if (error) {
+    throw new Error(error.message || 'Gagal menghapus transaksi.');
+  }
+
+  invalidateCache();
+  return { success: true };
+}
+
 export {
   invalidateCache,
   getDemoStorageObject,
   listDemoStorageObjects,
   resetDemoAdminData,
+  resetDemoOrders,
+  ORDER_STATUSES,
 };
 

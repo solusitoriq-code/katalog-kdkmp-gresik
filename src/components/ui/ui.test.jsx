@@ -39,6 +39,12 @@ describe('UI primitives', () => {
       <DateText value="07:00:00" mode="time" />
     );
     expect(timeHtml).toContain('07.00');
+
+    const longHtml = renderToStaticMarkup(
+      <DateText value="2026-11-09T07:05:00+07:00" mode="longDateTime" />
+    );
+    expect(longHtml).toContain('tabular-nums');
+    expect(longHtml).toContain('09 November 2026 07:05');
   });
 
   it('renders Button variants with min-h-11 touch target', () => {

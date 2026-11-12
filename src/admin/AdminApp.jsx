@@ -10,11 +10,18 @@ import { AdminCategoriesPage } from './AdminCategoriesPage';
 import { AdminSettingsPage } from './AdminSettingsPage';
 import { AdminWilayahPage } from './AdminWilayahPage';
 import { AdminUnitsPage } from './AdminUnitsPage';
+import { AdminOrdersPage } from './AdminOrdersPage';
+import { AdminOrderFormPage } from './AdminOrderFormPage';
 
 export default function AdminApp({
   initialAuthState = null,
   initialSummary = null,
   initialStats = null,
+  initialOrders = null,
+  initialOrderPage = 1,
+  initialOrderStatus = 'all',
+  initialOrderSearch = '',
+  initialSelectedOrder = null,
   initialProducts = null,
   initialCategories = null,
   initialQuickPriceMode = false,
@@ -55,6 +62,34 @@ export default function AdminApp({
                 initialSummary={initialSummary}
                 initialStats={initialStats}
               />
+            }
+          />
+          <Route
+            path="transaksi"
+            element={
+              <AdminOrdersPage
+                initialOrders={initialOrders}
+                initialPage={initialOrderPage}
+                initialStatus={initialOrderStatus}
+                initialSearch={initialOrderSearch}
+                initialSelectedOrder={initialSelectedOrder}
+              />
+            }
+          />
+          <Route
+            path="transaksi/tambah"
+            element={
+              <VillageAdminGuard>
+                <AdminOrderFormPage mode="create" />
+              </VillageAdminGuard>
+            }
+          />
+          <Route
+            path="transaksi/:orderId/edit"
+            element={
+              <VillageAdminGuard>
+                <AdminOrderFormPage mode="edit" />
+              </VillageAdminGuard>
             }
           />
           <Route

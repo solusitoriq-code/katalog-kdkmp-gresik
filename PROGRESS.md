@@ -23,6 +23,7 @@ Status: `TODO` · `WIP` · `DONE` · `BLOCKED` · `SKIP`
 | S12 | Statistik checkout (opsional) | Sedang | DONE | 2026-11-11 |
 | S13a | QA, performa & finalisasi kode lokal | Sedang | DONE | 2026-11-11 |
 | S13b | Setup Git, Cloudflare Pages & Supabase Cloud | Sedang | TODO | |
+| S14 | CRUD Transaksi Admin (Super Admin & Manager) | Sedang | DONE | 2026-11-11 |
 
 ## Gerbang Aturan (cek di setiap sesi)
 
@@ -172,11 +173,27 @@ Status: `TODO` · `WIP` · `DONE` · `BLOCKED` · `SKIP`
 - [ ] (Opsional) GitHub Actions ping anti-pause Supabase
 - [ ] Deploy produksi: URL ___
 
+### S14 · CRUD Transaksi Admin (Super Admin & Manager)
+- [x] Migrasi `0010_orders_crud.sql` (tabel `orders`, index, trigger `updated_at`, RLS insert public anon/auth untuk koperasi aktif, select/update/delete untuk manager koperasinya dan super admin)
+- [x] Pencatatan pesanan di form checkout publik (`CheckoutSheet.jsx` memanggil `createOrder` fire-and-forget sebelum buka WhatsApp)
+- [x] API layer & demo data (`createOrder`, `getAdminOrders`, `updateAdminOrderStatus`, `updateAdminOrder`, `deleteAdminOrder` di `api.js` & `demoData.js`)
+- [x] Halaman `/admin/transaksi` (`AdminOrdersPage.jsx` & `adminOrderUtils.js`):
+  - Filter status tabs: Semua, Menunggu (`pending`), Diproses (`processing`), Selesai (`completed`), Dibatalkan (`cancelled`)
+  - Pencarian live berdasarkan nama pemesan, no. order, atau no. telepon
+  - Super Admin: Filter per Koperasi
+  - Tampilan adaptif mobile-first (kartu rapi di mobile < 1024px, tabel terstruktur di desktop >= 1024px)
+  - Detail Sheet (`OrderDetailsSheet`): Rincian produk, informasi pengiriman & pembayaran, tombol Chat WA, pengubah status, dan konfirmasi hapus transaksi
+- [x] Navigasi menu `Transaksi` (icon `ReceiptText`) di `AdminLayout` untuk Manager KDKMP dan Super Admin
+- [x] Unit test komprehensif (115/115 lolos, isolasi tenant 1 Manager = 1 KDKMP, RLS & mutasi)
+
 ---
 
 ## Log Keputusan
 
 | Tanggal | Sesi | Keputusan | Alasan |
+|---|---|---|---|
+| 2026-11-11 | S14b | Pemisahan Tambah & Edit Transaksi menjadi halaman tersendiri (`/admin/transaksi/tambah` dan `/admin/transaksi/:orderId/edit`), pemilihan produk wajib dari katalog produk koperasi desa (`getAdminProducts`), pembatasan akses eksklusif hanya untuk Manager Desa (`VillageAdminGuard`), serta penegasan Super Admin read-only (hanya melihat list dan modal detail tanpa aksi mutasi/tambah/edit/status/hapus) | Memenuhi kebutuhan alur input & penyesuaian pesanan berbasis katalog riil koperasi per desa, mencegah kesalahan harga/produk, serta memperkuat hak akses 1 Manager = 1 KDKMP |
+| 2026-11-11 | S14 | Implementasi modul CRUD Transaksi Admin (`orders`), RLS isolasi tenant 1 Manager = 1 KDKMP, integrasi form checkout WA, filter status & wilayah, serta menu Transaksi di Super Admin dan Manager | Mengakomodasi kebutuhan pengelolaan riwayat dan status pesanan langsung dari panel admin tanpa merusak alur checkout WhatsApp |
 |---|---|---|---|
 | 2026-11-09 | — | Entitas = KDKMP (Koperasi Desa/Kelurahan Merah Putih), tambah `villages.type` (`desa`/`kelurahan`) | Konsep proyek KDKMP, bukan BUMDes |
 | 2026-11-09 | — | Rollout pilot 1 kecamatan → 1 kabupaten via `subdistricts.is_active` | Ekspansi tanpa ubah skema |
@@ -766,12 +783,65 @@ Keputusan baru:
 Sisa / blocker: Tidak ada
 Catatan untuk sesi berikut: Jalankan migrasi `0009_fix_products_rls_global_categories.sql` di Supabase SQL Editor bagi instance yang sudah berjalan.
 
+### S14 · CRUD Transaksi Admin (Super Admin & Manager) · 2026-11-11
+Status: DONE
+File dibuat/diubah:
+- `supabase/migrations/0010_orders_crud.sql`
+- `supabase/README.md`
+- `src/lib/demoData.js`
+- `src/lib/api.js`
+- `src/lib/format.js`
+- `src/lib/format.test.js`
+- `src/components/ui/DateText.jsx`
+- `src/components/ui/ui.test.jsx`
+- `src/features/checkout/CheckoutSheet.jsx`
+- `src/admin/adminOrderUtils.js`
+- `src/admin/AdminOrdersPage.jsx`
+- `src/admin/AdminLayout.jsx`
+- `src/admin/AdminApp.jsx`
+- `src/admin/admin.test.jsx`
+- `PROGRESS.md`
+Verifikasi: build ✓ (`dist/assets/AdminApp-*.js` 185.61 KB / gzip 42.49 kB) · lint ✓ · test ✓ (118/118) · viewport 360/768/1024/1280 ✓ · grep gradient = 0
+Keputusan baru:
+- Menambahkan fitur Tambah Transaksi via `OrderFormSheet` dengan validasi data pemesan, metode pengiriman, metode pembayaran, rincian produk dinamis, dan kalkulasi subtotal/total otomatis.
+- Menambahkan fitur Edit Transaksi via `OrderFormSheet` yang HANYA diizinkan ketika status transaksi belum selesai dan belum dibatalkan (`pending` atau `processing`). Transaksi berstatus `completed` atau `cancelled` dikunci permanen tanpa tombol edit/hapus/ubah status.
+- Format waktu pemesanan pada kolom tabel desktop, kartu mobile/tablet, dan sheet rincian menggunakan `formatLongDateTime` dengan pola `dd MMMM yyyy HH:mm` (WIB Asia/Jakarta) via `<DateText mode="longDateTime">`.
+- Tombol aksi ganti status disesuaikan responsif (mobile, tablet, desktop) menggunakan tombol aksi langsung ("Proses", "Selesai", "Batalkan") tanpa elemen `<select>` mentah, dengan target sentuh mobile >= 44px (`min-h-11`).
+- Pada transaksi dengan status `completed` (Selesai) atau `cancelled` (Dibatalkan), pilihan Ubah Status, Hapus Order, dan Edit Order dihilangkan sepenuhnya baik di kartu mobile, tabel desktop, maupun footer & body `OrderDetailsSheet` (hanya menyisakan tombol "Detail" / "Tutup").
+- Membuat tabel `orders` dan kebijakan RLS (1 Manager = 1 KDKMP, Super Admin melihat & mengelola semua pesanan) serta mengintegrasikan pemanggilan `createOrder` fire-and-forget pada alur checkout WhatsApp (`CheckoutSheet.jsx`).
+- Menambahkan halaman `/admin/transaksi` dengan tabs status (`Semua`, `Menunggu`, `Diproses`, `Selesai`, `Dibatalkan`), live search, selector filter koperasi untuk Super Admin, kartu mobile < 1024px, tabel data desktop >= 1024px, dan `OrderDetailsSheet`.
+- Menambahkan tab menu navigasi `Transaksi` (icon `ReceiptText`) di `AdminLayout` untuk Super Admin maupun Manager KDKMP.
+Sisa / blocker: Tidak ada
+Catatan untuk sesi berikut: Jalankan migrasi `0010_orders_crud.sql` di Supabase SQL Editor.
+
+### S14b · Halaman Dedicated Tambah & Edit Transaksi + Produk Koperasi + Super Admin Read-Only · 2026-11-11
+Status: DONE
+File dibuat/diubah:
+- `src/admin/AdminOrderFormPage.jsx`
+- `src/admin/AdminOrdersPage.jsx`
+- `src/admin/AdminApp.jsx`
+- `src/lib/api.js`
+- `src/lib/demoData.js`
+- `src/admin/admin.test.jsx`
+- `PROGRESS.md`
+Verifikasi: build ✓ (`dist/assets/AdminApp-*.js` 189.90 KB / gzip 43.37 kB) · lint ✓ · test ✓ (119/119) · viewport 360/768/1024/1280 ✓ · grep gradient = 0
+Keputusan baru:
+- Memindahkan form Tambah Transaksi dan Edit Transaksi dari Sheet modal menjadi rute halaman penuh mandiri: `/admin/transaksi/tambah` dan `/admin/transaksi/:orderId/edit`.
+- Rute form transaksi dilindungi oleh `VillageAdminGuard` di `AdminApp.jsx`: Super Admin otomatis dialihkan ke `/admin`. Jika diakses langsung, `AdminOrderFormPage` menampilkan pesan informatif bahwa Super Admin hanya memiliki hak melihat list dan rincian transaksi.
+- Tambah Produk pada transaksi wajib dipilih dari katalog produk koperasi desa/kelurahan terkait (`products` via `getAdminProducts`). Memilih produk dari dropdown otomatis mengisi `product_id`, `name`, `price`, dan `unit`, dengan stepper qty (+/-), kalkulasi subtotal per item, dan total pesanan dinamis (`<Money>`).
+- Jika koperasi belum memiliki produk, form menyajikan tautan langsung ke `/admin/produk` untuk menambahkan produk koperasi terlebih dahulu.
+- Edit Transaksi hanya dapat dilakukan pada transaksi yang belum terminal (`pending` atau `processing`). Transaksi berstatus `completed` atau `cancelled` ditolak untuk diedit dengan pesan penolakan dan tombol kembali.
+- Super Admin ditegaskan dalam mode read-only: tombol "+ Tambah Transaksi", tombol "Edit", tombol aksi status ("Proses", "Selesai", "Batalkan"), dan tombol "Hapus" ditiadakan dari UI Super Admin. Super Admin hanya dapat memfilter per Koperasi, mencari pesanan, dan membuka modal "Detail Transaksi".
+Sisa / blocker: Tidak ada
+Catatan untuk sesi berikut: Siap untuk deployment atau pengujian integrasi remote.
+
 ## Log Bug
 
 | Tanggal | Route | Gejala | Akar masalah | Status |
 |---|---|---|---|---|
 | 2026-11-09 | `/admin/produk` | Tombol `Batal` & `Simpan Produk` pada modal Tambah/Ubah Produk di desktop (`lg`) melayang di tengah modal dan menutupi form | Class `sticky bottom-0` pada footer `Sheet` melekat ke koordinat viewport sebelum transform `lg:-translate-y-1/2` karena kontainer dialog belum `overflow-hidden` | DONE (`shrink-0` pada header/footer + `min-h-0 flex-1 overflow-y-auto` pada body + `overflow-hidden` pada dialog) |
 | 2026-11-11 | `/admin/produk` | Error `new row violates row-level security policy for table "products"` saat akun owner menambah/mengubah link gambar atau data produk berkategori | Policy RLS `products_all_village_admin` masih mengecek `c.village_id = products.village_id`, sedangkan pada S11b kategori telah bermigrasi menjadi Master Kategori Global (`village_id` bernilai `NULL` atau lintas desa) | DONE (Migrasi `0009_fix_products_rls_global_categories.sql`, update `0002_rls.sql`, & penyesuaian `src/lib/api.js`) |
+| 2026-11-11 | `/admin/transaksi` | Transaksi lama muncul di Ringkasan tapi kosong di list `/admin/transaksi` | Halaman Ringkasan membaca log analitik `order_logs` (S12), sedangkan list Transaksi membaca tabel baru `orders` (S14) yang belum tersinkronisasi/di-backfill | DONE (Sinkronisasi otomatis `order_logs` ke `orders` di `api.js` & `demoData.js`, serta query backfill SQL di `0010_orders_crud.sql`) |
 
 ## Known Limitation
 

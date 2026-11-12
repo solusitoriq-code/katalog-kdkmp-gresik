@@ -7,6 +7,7 @@ import {
   formatDate,
   formatTime,
   formatDateTime,
+  formatLongDateTime,
 } from './format';
 
 describe('format.js', () => {
@@ -65,6 +66,14 @@ describe('format.js', () => {
 
     it('formats combined date and time in Asia/Jakarta', () => {
       expect(formatDateTime('2026-11-09T07:00:00+07:00')).toBe('09/11/2026 07.00');
+    });
+
+    it('formats long date time in dd MMMM yyyy HH:mm (Asia/Jakarta)', () => {
+      expect(formatLongDateTime('2026-11-09T07:05:00+07:00')).toBe('09 November 2026 07:05');
+      // UTC 15:49 = 22:49 WIB
+      expect(formatLongDateTime('2026-11-11T15:49:00Z')).toBe('11 November 2026 22:49');
+      expect(formatLongDateTime(null)).toBe('-');
+      expect(formatLongDateTime('invalid')).toBe('-');
     });
   });
 });

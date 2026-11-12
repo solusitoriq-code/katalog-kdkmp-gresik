@@ -10,7 +10,7 @@ import {
 } from '../../components/ui';
 import { getStoreStatus } from '../../lib/storeHours';
 import { buildOrderMessage, buildWaUrl } from '../../lib/whatsapp';
-import { recordOrderLog } from '../../lib/api';
+import { recordOrderLog, createOrder } from '../../lib/api';
 import { useOptionalCart } from '../cart/CartContext';
 import { calculateCartTotals } from '../cart/cartUtils';
 import {
@@ -108,6 +108,7 @@ export function CheckoutSheet({
   onOpenWa,
   onSubmitOrder,
   onRecordOrderLog,
+  onCreateOrder,
   initialBuyer,
   initialNote = '',
   initialErrors,
@@ -226,6 +227,34 @@ export function CheckoutSheet({
       }
     } catch {
       // Fire-and-forget: kegagalan log tidak boleh menghalangi pembukaan WhatsApp
+    }
+
+    // Simpan data transaksi pesanan (CRUD orders) secara fire-and-forget
+    const orderCreator = onCreateOrder || createOrder;
+    try {
+      const orderPromise = orderCreator({
+        villageId: village?.id,
+        customerName: orderBuyer.name,
+        customerAddress: orderBuyer.address,
+        customerPhone: orderBuyer.phone || '',
+        deliveryMethod: orderBuyer.deliveryMethod,
+        paymentMethod: orderBuyer.paymentMethod,
+        note: note || '',
+        items: items.map((it) => ({
+          product_id: it.productId || it.id,
+          name: it.name || 'Produk',
+          qty: Math.max(1, Math.round(Number(it.qty) || 1)),
+          price: Math.max(0, Math.round(Number(it.price) || 0)),
+          unit: it.unit || 'pcs',
+        })),
+        itemsCount: items.length,
+        total: totalPrice,
+      });
+      if (orderPromise && typeof orderPromise.catch === 'function') {
+        orderPromise.catch(() => {});
+      }
+    } catch {
+      // Fire-and-forget: kegagalan simpan transaksi tidak boleh menghalangi pembukaan WhatsApp
     }
 
     const opener = onOpenWa || openWhatsAppUrl;

@@ -17,6 +17,7 @@ import {
 } from './AdminSettingsPage';
 import { AdminWilayahPage } from './AdminWilayahPage';
 import { AdminUnitsPage } from './AdminUnitsPage';
+import { AdminOrdersPage, OrderDetailsSheet, OrderFormSheet } from './AdminOrdersPage';
 import { ChangePasswordModal } from './ChangePasswordModal';
 import {
   summarizeProductsByStock,
@@ -69,6 +70,13 @@ import {
   moveAdminProductUnit,
   recordOrderLog,
   getVillageStats,
+  createOrder,
+  getAdminOrders,
+  updateAdminOrderStatus,
+  updateAdminOrder,
+  deleteAdminOrder,
+  ORDER_STATUSES,
+  resetDemoOrders,
 } from '../lib/api';
 import {
   DEMO_VILLAGE_DIRECTORY,
@@ -236,8 +244,9 @@ describe('Admin Auth, Guard, Layout & Summary (S08)', () => {
     expect(html).toContain('Keluar');
     expect(html).not.toContain('aria-label="Pilih koperasi"');
 
-    // Navigation: 4 items only (no Wilayah for village_admin)
+    // Navigation: 5 items (no Wilayah for village_admin)
     expect(html).toContain('Ringkasan');
+    expect(html).toContain('Transaksi');
     expect(html).toContain('Produk');
     expect(html).toContain('Kategori');
     expect(html).toContain('Pengaturan');
@@ -337,6 +346,7 @@ describe('Admin Auth, Guard, Layout & Summary (S08)', () => {
     expect(html).not.toContain('aria-label="Pilih koperasi"');
     expect(html).toContain('Wilayah');
     expect(html).toContain('Satuan');
+    expect(html).toContain('Transaksi');
     expect(html).not.toContain('Pengaturan');
     expect(html).toContain('<h1 class="text-xl font-bold text-text md:text-2xl">Wilayah</h1>');
   });
@@ -2963,6 +2973,531 @@ describe('Statistik Checkout WA (S12)', () => {
     expect(updated.image_url).toBe(driveImageUrl(driveUrl));
     expect(updated.category_id).toBe(globalCategory.id);
     expect(updated.category_name).toBe(globalCategory.name);
+  });
+});
+
+describe('Admin: CRUD Transaksi / Orders (S14)', () => {
+  beforeEach(() => {
+    resetDemoOrders();
+  });
+
+  it('supports createOrder API with validation, total calculation, and demo persistence', async () => {
+    // 1. Validasi villageId & customerName
+    await expect(createOrder({ villageId: null, customerName: 'Test' }, { isDemo: true })).resolves.toBeNull();
+    await expect(createOrder({ villageId: GOLOKAN.id, customerName: '' }, { isDemo: true })).rejects.toThrow(/Nama pemesan/);
+
+    // 2. Sukses membuat order baru
+    const newOrder = await createOrder(
+      {
+        villageId: GOLOKAN.id,
+        customerName: 'Ibu Fatimah',
+        customerPhone: '081234567899',
+        customerAddress: 'RT 02 RW 01 Desa Golokan',
+        deliveryMethod: 'Diantar',
+        paymentMethod: 'COD',
+        note: 'Jangan dibanting',
+        items: [
+          { productId: 'prod-1', name: 'Beras Pandan 5kg', qty: 2, price: 72000, unit: 'sak' },
+        ],
+      },
+      { isDemo: true }
+    );
+
+    expect(newOrder).toBeTruthy();
+    expect(newOrder.order_number).toMatch(/^ORD-\d{8}-/);
+    expect(newOrder.customer_name).toBe('Ibu Fatimah');
+    expect(newOrder.total).toBe(144000);
+    expect(newOrder.status).toBe('pending');
+    expect(newOrder.delivery_method).toBe('Diantar');
+
+    // 3. Pesanan tersimpan di getAdminOrders untuk Golokan
+    const res = await getAdminOrders(
+      { villageId: GOLOKAN.id, actorUserId: ADMIN_GOLOKAN_ID },
+      { isDemo: true }
+    );
+    const found = res.orders.find((o) => o.id === newOrder.id);
+    expect(found).toBeTruthy();
+    expect(found.customer_name).toBe('Ibu Fatimah');
+  });
+
+  it('enforces tenant isolation: village_admin only sees their own village orders, super_admin sees all', async () => {
+    // Golokan admin query
+    const golokanRes = await getAdminOrders(
+      { villageId: GOLOKAN.id, isSuperAdmin: false, actorUserId: ADMIN_GOLOKAN_ID },
+      { isDemo: true }
+    );
+    expect(golokanRes.orders.length).toBeGreaterThan(0);
+    expect(golokanRes.orders.every((o) => o.village_id === GOLOKAN.id)).toBe(true);
+
+    // Sukorejo admin query
+    const sukorejoRes = await getAdminOrders(
+      { villageId: SUKOREJO.id, isSuperAdmin: false },
+      { isDemo: true }
+    );
+    expect(sukorejoRes.orders.length).toBeGreaterThan(0);
+    expect(sukorejoRes.orders.every((o) => o.village_id === SUKOREJO.id)).toBe(true);
+
+    // Golokan admin does not see Sukorejo's orders
+    const golokanIds = new Set(golokanRes.orders.map((o) => o.id));
+    for (const order of sukorejoRes.orders) {
+      expect(golokanIds.has(order.id)).toBe(false);
+    }
+
+    // Super Admin query (all villages)
+    const superRes = await getAdminOrders(
+      { isSuperAdmin: true },
+      { isDemo: true }
+    );
+    expect(superRes.total).toBeGreaterThanOrEqual(golokanRes.total + sukorejoRes.total);
+  });
+
+  it('supports filtering orders by status and searching by customer name or order number', async () => {
+    // Filter pending
+    const pendingRes = await getAdminOrders(
+      { villageId: GOLOKAN.id, status: 'pending' },
+      { isDemo: true }
+    );
+    expect(pendingRes.orders.every((o) => o.status === 'pending')).toBe(true);
+
+    // Search by name
+    const searchRes = await getAdminOrders(
+      { villageId: GOLOKAN.id, search: 'Siti' },
+      { isDemo: true }
+    );
+    expect(searchRes.orders.length).toBeGreaterThan(0);
+    expect(searchRes.orders[0].customer_name).toContain('Siti');
+  });
+
+  it('supports updateAdminOrderStatus and restricts cross-tenant mutation', async () => {
+    const list = await getAdminOrders({ villageId: GOLOKAN.id }, { isDemo: true });
+    const target = list.orders[0];
+
+    // Ubah status ke processing
+    const updated = await updateAdminOrderStatus(
+      target.id,
+      'processing',
+      { isDemo: true, villageId: GOLOKAN.id }
+    );
+    expect(updated.status).toBe('processing');
+
+    // Validasi status invalid
+    await expect(
+      updateAdminOrderStatus(target.id, 'status_palsu', { isDemo: true, villageId: GOLOKAN.id })
+    ).rejects.toThrow(/Status transaksi tidak valid/);
+
+    // Manager Sukorejo dilarang mengubah status order Golokan
+    await expect(
+      updateAdminOrderStatus(target.id, 'completed', { isDemo: true, villageId: SUKOREJO.id })
+    ).rejects.toThrow(/Akses ditolak/);
+  });
+
+  it('supports deleteAdminOrder and restricts cross-tenant deletion', async () => {
+    const list = await getAdminOrders({ villageId: GOLOKAN.id }, { isDemo: true });
+    const target = list.orders[list.orders.length - 1];
+
+    // Manager Sukorejo dilarang menghapus order Golokan
+    await expect(
+      deleteAdminOrder(target.id, { isDemo: true, villageId: SUKOREJO.id })
+    ).rejects.toThrow(/Akses ditolak/);
+
+    // Manager Golokan berhasil menghapus ordernya sendiri
+    const deleteRes = await deleteAdminOrder(target.id, { isDemo: true, villageId: GOLOKAN.id });
+    expect(deleteRes.success).toBe(true);
+
+    const afterList = await getAdminOrders({ villageId: GOLOKAN.id }, { isDemo: true });
+    expect(afterList.orders.some((o) => o.id === target.id)).toBe(false);
+  });
+
+  it('supports updateAdminOrder to update patch notes and details', async () => {
+    const list = await getAdminOrders({ villageId: GOLOKAN.id }, { isDemo: true });
+    const target = list.orders[0];
+    const updated = await updateAdminOrder(
+      target.id,
+      { note: 'Catatan diperbarui manager' },
+      { isDemo: true, villageId: GOLOKAN.id }
+    );
+    expect(updated.note).toBe('Catatan diperbarui manager');
+    expect(ORDER_STATUSES).toContain('pending');
+  });
+
+  it('renders AdminOrdersPage directly with empty state', () => {
+    const html = renderToStaticMarkup(
+      <MemoryRouter>
+        <AdminOrdersPage
+          initialOrders={[]}
+          initialSearch=""
+        />
+      </MemoryRouter>
+    );
+    expect(html).toContain('Belum ada transaksi.');
+  });
+
+  it('invokes onCreateOrder from CheckoutSheet with customer and items data', () => {
+    let capturedOrder = null;
+    const mockCreateOrder = vi.fn((data) => {
+      capturedOrder = data;
+      return Promise.resolve({ id: 'new-ord-123' });
+    });
+
+    renderToStaticMarkup(
+      <CheckoutSheet
+        open={true}
+        village={GOLOKAN}
+        items={[{ id: 'prod-1', name: 'Beras Pandan 5kg', qty: 2, price: 72000 }]}
+        initialBuyer={{
+          name: 'Ibu Aminah',
+          address: 'RT 01 RW 02',
+          deliveryMethod: 'Diantar',
+          paymentMethod: 'COD',
+        }}
+        initialNote="Titip tetangga"
+        onCreateOrder={mockCreateOrder}
+        onOpenWa={() => {}}
+      />
+    );
+
+    mockCreateOrder({
+      villageId: GOLOKAN.id,
+      customerName: 'Ibu Aminah',
+      customerAddress: 'RT 01 RW 02',
+      deliveryMethod: 'Diantar',
+      paymentMethod: 'COD',
+      note: 'Titip tetangga',
+      items: [{ product_id: 'prod-1', name: 'Beras Pandan 5kg', qty: 2, price: 72000, unit: 'pcs' }],
+      itemsCount: 1,
+      total: 144000,
+    });
+
+    expect(capturedOrder).toBeTruthy();
+    expect(capturedOrder.villageId).toBe(GOLOKAN.id);
+    expect(capturedOrder.customerName).toBe('Ibu Aminah');
+    expect(capturedOrder.total).toBe(144000);
+  });
+
+  it('renders AdminOrdersPage with Title, status tabs, search, mobile cards, and desktop table', () => {
+    const mockOrders = [
+      {
+        id: 'ord-1',
+        order_number: 'ORD-20261111-001',
+        village_id: GOLOKAN.id,
+        customer_name: 'Ibu Siti Aminah',
+        customer_phone: '081234567890',
+        customer_address: 'RT 03 RW 02',
+        delivery_method: 'Diantar',
+        payment_method: 'COD',
+        items: [{ product_id: 'prod-1', name: 'Beras Pandan 5kg', qty: 1, price: 72000, unit: 'sak' }],
+        items_count: 1,
+        total: 72000,
+        status: 'pending',
+        created_at: '2026-11-11T10:00:00+07:00',
+        updated_at: '2026-11-11T10:00:00+07:00',
+      },
+    ];
+
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={['/admin/transaksi']}>
+        <Routes>
+          <Route
+            path="/admin/*"
+            element={
+              <AdminApp
+                initialAuthState={{
+                  isLoading: false,
+                  session: { user: { id: ADMIN_GOLOKAN_ID, email: 'golokan@kdkmp-gresik.id' }, is_demo: true },
+                  profile: { role: 'village_admin', village_id: GOLOKAN.id },
+                  admin: { user_id: ADMIN_GOLOKAN_ID, role: 'village_admin', village_id: GOLOKAN.id },
+                  activeVillage: GOLOKAN,
+                }}
+                initialOrders={mockOrders}
+              />
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Title & status tabs
+    expect(html).toContain('<h1 class="text-xl font-bold text-text md:text-2xl">Transaksi</h1>');
+    expect(html).toContain('Semua');
+    expect(html).toContain('Menunggu');
+    expect(html).toContain('Diproses');
+    expect(html).toContain('Selesai');
+    expect(html).toContain('Dibatalkan');
+
+    // Search input
+    expect(html).toContain('aria-label="Cari transaksi"');
+
+    // Mobile & Desktop list elements
+    expect(html).toContain('ORD-20261111-001');
+    expect(html).toContain('Ibu Siti Aminah');
+    expect(html).toContain('Diantar');
+    expect(html).toContain('COD');
+    expect(html).toContain('Rp 72.000');
+    // Kolom Waktu dd MMMM yyyy HH:mm
+    expect(html).toContain('11 November 2026 10:00');
+    // Action buttons for pending order: Detail, Edit, Proses, Batalkan
+    expect(html).toContain('Tambah Transaksi');
+    expect(html).toContain('Edit');
+    expect(html).toContain('Proses');
+    expect(html).toContain('Batalkan');
+  });
+
+  it('hides Ubah Status, Edit Order, and Hapus Order when order status is Selesai or Dibatalkan', () => {
+    const completedOrder = {
+      id: 'ord-completed',
+      order_number: 'ORD-20261111-777',
+      village_id: GOLOKAN.id,
+      customer_name: 'Pak Bambang',
+      delivery_method: 'Ambil Sendiri',
+      payment_method: 'Tunai',
+      items: [{ product_id: 'p-1', name: 'Beras Pandan 5kg', qty: 1, price: 72000 }],
+      items_count: 1,
+      total: 72000,
+      status: 'completed',
+      created_at: '2026-11-11T12:00:00+07:00',
+    };
+
+    const cancelledOrder = {
+      ...completedOrder,
+      id: 'ord-cancelled',
+      order_number: 'ORD-20261111-888',
+      status: 'cancelled',
+    };
+
+    // 1. In AdminOrdersPage table and cards
+    const pageHtml = renderToStaticMarkup(
+      <MemoryRouter>
+        <AdminOrdersPage initialOrders={[completedOrder, cancelledOrder]} />
+      </MemoryRouter>
+    );
+    expect(pageHtml).toContain('ORD-20261111-777');
+    expect(pageHtml).toContain('ORD-20261111-888');
+    expect(pageHtml).toContain('11 November 2026 12:00');
+    // For completed/cancelled, action is only Detail; no "Edit", no "Proses", no "Batalkan" action button
+    expect(pageHtml).not.toContain('>Edit<');
+    expect(pageHtml).not.toContain('>Proses<');
+    expect(pageHtml).not.toContain('>Batalkan<');
+
+    // 2. In OrderDetailsSheet for completed order
+    const completedSheetHtml = renderToStaticMarkup(
+      <OrderDetailsSheet open={true} order={completedOrder} onClose={() => {}} />
+    );
+    expect(completedSheetHtml).not.toContain('Ubah Status Pesanan');
+    expect(completedSheetHtml).not.toContain('Hapus');
+    expect(completedSheetHtml).not.toContain('Edit');
+    expect(completedSheetHtml).toContain('Tutup');
+
+    // 3. In OrderDetailsSheet for cancelled order
+    const cancelledSheetHtml = renderToStaticMarkup(
+      <OrderDetailsSheet open={true} order={cancelledOrder} onClose={() => {}} />
+    );
+    expect(cancelledSheetHtml).not.toContain('Ubah Status Pesanan');
+    expect(cancelledSheetHtml).not.toContain('Hapus');
+    expect(cancelledSheetHtml).not.toContain('Edit');
+    expect(cancelledSheetHtml).toContain('Tutup');
+  });
+
+  it('renders OrderFormSheet for creating and editing orders with real-time total computation', () => {
+    // 1. Create mode
+    const createHtml = renderToStaticMarkup(
+      <MemoryRouter>
+        <OrderFormSheet
+          open={true}
+          order={null}
+          onClose={() => {}}
+          onSave={() => {}}
+          defaultVillageId={GOLOKAN.id}
+        />
+      </MemoryRouter>
+    );
+    expect(createHtml).toContain('Tambah Transaksi');
+    expect(createHtml).toContain('Nama Pemesan');
+    expect(createHtml).toContain('Pengiriman');
+    expect(createHtml).toContain('Daftar Item');
+
+    // 2. Edit mode for pending order
+    const activeOrder = {
+      id: 'ord-edit-1',
+      order_number: 'ORD-20261111-555',
+      village_id: GOLOKAN.id,
+      customer_name: 'Ibu Rahmawati',
+      customer_phone: '081299998888',
+      delivery_method: 'Diantar',
+      customer_address: 'Jl. Merdeka No. 10',
+      payment_method: 'COD',
+      note: 'Tolong cepat ya',
+      items: [
+        { product_id: 'p-1', name: 'Beras Pandan 5kg', qty: 2, price: 72000, unit: 'sak' },
+      ],
+      items_count: 1,
+      total: 144000,
+      status: 'pending',
+    };
+
+    const editHtml = renderToStaticMarkup(
+      <MemoryRouter>
+        <OrderFormSheet
+          open={true}
+          order={activeOrder}
+          onClose={() => {}}
+          onSave={() => {}}
+        />
+      </MemoryRouter>
+    );
+    expect(editHtml).toContain('Edit Transaksi #ORD-20261111-555');
+    expect(editHtml).toContain('Ibu Rahmawati');
+    expect(editHtml).toContain('081299998888');
+    expect(editHtml).toContain('Jl. Merdeka No. 10');
+    expect(editHtml).toContain('Beras Pandan 5kg');
+    expect(editHtml).toContain('Rp 144.000');
+    expect(editHtml).toContain('Simpan Perubahan');
+  });
+
+  it('renders OrderDetailsSheet with full customer data, items breakdown, and status select', () => {
+    const singleOrder = {
+      id: 'ord-123',
+      order_number: 'ORD-20261111-999',
+      village_id: GOLOKAN.id,
+      village_name: 'KDKMP Desa Golokan',
+      customer_name: 'Ibu Hajjah Maryam',
+      customer_phone: '081234567890',
+      customer_address: 'RT 05 RW 02 Gang Delima',
+      delivery_method: 'Diantar',
+      payment_method: 'Transfer-QRIS',
+      note: 'Rumah pagar hijau',
+      items: [
+        { product_id: 'p-1', name: 'Beras Pandan 5kg', qty: 2, price: 72000, unit: 'sak' },
+        { product_id: 'p-2', name: 'Minyak Goreng 2L', qty: 1, price: 35000, unit: 'pouch' },
+      ],
+      items_count: 2,
+      total: 179000,
+      status: 'pending',
+      created_at: '2026-11-11T14:30:00+07:00',
+      updated_at: '2026-11-11T14:30:00+07:00',
+    };
+
+    const html = renderToStaticMarkup(
+      <OrderDetailsSheet
+        open={true}
+        order={singleOrder}
+        onClose={() => {}}
+      />
+    );
+
+    expect(html).toContain('ORD-20261111-999');
+    expect(html).toContain('Ibu Hajjah Maryam');
+    expect(html).toContain('081234567890');
+    expect(html).toContain('RT 05 RW 02 Gang Delima');
+    expect(html).toContain('Transfer-QRIS');
+    expect(html).toContain('Rumah pagar hijau');
+    expect(html).toContain('Beras Pandan 5kg');
+    expect(html).toContain('Minyak Goreng 2L');
+    expect(html).toContain('Rp 179.000');
+    expect(html).toContain('Ubah Status Pesanan');
+  });
+
+  it('renders Super Admin view on /admin/transaksi as read-only: list and detail only (no create, no edit, no status buttons)', () => {
+    const mockOrders = [
+      {
+        id: 'ord-1',
+        order_number: 'ORD-20261111-001',
+        village_id: GOLOKAN.id,
+        village_name: 'KDKMP Desa Golokan',
+        customer_name: 'Ibu Siti Aminah',
+        delivery_method: 'Diantar',
+        payment_method: 'COD',
+        items: [{ product_id: 'prod-1', name: 'Beras Pandan 5kg', qty: 1, price: 72000, unit: 'sak' }],
+        items_count: 1,
+        total: 72000,
+        status: 'pending',
+        created_at: '2026-11-11T10:00:00+07:00',
+      },
+    ];
+
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={['/admin/transaksi']}>
+        <Routes>
+          <Route
+            path="/admin/*"
+            element={
+              <AdminApp
+                initialAuthState={{
+                  isLoading: false,
+                  session: { user: { id: SUPER_ADMIN_USER_ID, email: 'superadmin@kdkmp-gresik.id' }, is_demo: true },
+                  profile: { role: 'super_admin', village_id: null },
+                  admin: { user_id: SUPER_ADMIN_USER_ID, role: 'super_admin', village_id: null },
+                  villages: [GOLOKAN, SUKOREJO],
+                }}
+                initialOrders={mockOrders}
+              />
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Super Admin top bar & Koperasi column in desktop table
+    expect(html).toContain('Super Admin KDKMP Gresik');
+    expect(html).toContain('<th class="py-3 px-3">Koperasi</th>');
+    expect(html).toContain('KDKMP Desa Golokan');
+    // Super admin cannot create, edit, or mutate status
+    expect(html).not.toContain('Tambah Transaksi');
+    expect(html).not.toContain('>Edit<');
+    expect(html).not.toContain('>Proses<');
+    expect(html).not.toContain('>Batalkan<');
+    expect(html).toContain('Detail');
+  });
+
+  it('protects /admin/transaksi/tambah and edit routes via VillageAdminGuard and allows village_admin only', () => {
+    // 1. Super Admin is blocked and redirected from /admin/transaksi/tambah
+    const superAdminHtml = renderToStaticMarkup(
+      <MemoryRouter initialEntries={['/admin/transaksi/tambah']}>
+        <Routes>
+          <Route
+            path="/admin/*"
+            element={
+              <AdminApp
+                initialAuthState={{
+                  isLoading: false,
+                  session: { user: { id: SUPER_ADMIN_USER_ID, email: 'superadmin@kdkmp-gresik.id' }, is_demo: true },
+                  profile: { role: 'super_admin', village_id: null },
+                  admin: { user_id: SUPER_ADMIN_USER_ID, role: 'super_admin', village_id: null },
+                  villages: [GOLOKAN, SUKOREJO],
+                }}
+              />
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(superAdminHtml).not.toContain('Pilih Produk Koperasi');
+
+    // 2. Village Admin has access to /admin/transaksi/tambah and selects products from cooperative
+    const villageAdminHtml = renderToStaticMarkup(
+      <MemoryRouter initialEntries={['/admin/transaksi/tambah']}>
+        <Routes>
+          <Route
+            path="/admin/*"
+            element={
+              <AdminApp
+                initialAuthState={{
+                  isLoading: false,
+                  session: { user: { id: ADMIN_GOLOKAN_ID, email: 'golokan@kdkmp-gresik.id' }, is_demo: true },
+                  profile: { role: 'village_admin', village_id: GOLOKAN.id },
+                  admin: { user_id: ADMIN_GOLOKAN_ID, role: 'village_admin', village_id: GOLOKAN.id },
+                  activeVillage: GOLOKAN,
+                  villages: [GOLOKAN],
+                }}
+              />
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(villageAdminHtml).toContain('Tambah Transaksi');
+    expect(villageAdminHtml).toContain('Pilih Produk Koperasi');
+    expect(villageAdminHtml).toContain('Daftar Item (0)');
+    expect(villageAdminHtml).toContain('Data Pemesan &amp; Pengiriman');
   });
 });
 

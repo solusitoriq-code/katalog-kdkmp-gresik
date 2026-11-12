@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { NavLink, Outlet } from 'react-router';
 import {
   LayoutDashboard,
+  ReceiptText,
   Package,
   Tags,
   Settings,
@@ -15,6 +16,7 @@ import { ChangePasswordModal } from './ChangePasswordModal';
 
 const BASE_NAV_ITEMS = [
   { to: '/admin', label: 'Ringkasan', icon: LayoutDashboard, end: true },
+  { to: '/admin/transaksi', label: 'Transaksi', icon: ReceiptText, end: false },
   { to: '/admin/produk', label: 'Produk', icon: Package, end: false },
   { to: '/admin/kategori', label: 'Kategori', icon: Tags, end: false },
   { to: '/admin/pengaturan', label: 'Pengaturan', icon: Settings, end: false },
@@ -50,6 +52,7 @@ export function AdminLayout({ children, initialPasswordModalOpen = false }) {
         BASE_NAV_ITEMS[0],
         BASE_NAV_ITEMS[1],
         BASE_NAV_ITEMS[2],
+        BASE_NAV_ITEMS[3],
         SATUAN_NAV_ITEM,
         WILAYAH_NAV_ITEM,
       ];
@@ -148,7 +151,7 @@ export function AdminLayout({ children, initialPasswordModalOpen = false }) {
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `flex h-14 min-h-11 flex-1 flex-col items-center justify-center gap-0.5 px-1 text-[11px] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600 ${
+                `flex h-14 min-h-11 flex-1 flex-col items-center justify-center gap-0.5 px-0.5 text-[10px] sm:text-[11px] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600 ${
                   isActive
                     ? 'font-semibold text-primary-700'
                     : 'font-medium text-text-2 hover:text-text'

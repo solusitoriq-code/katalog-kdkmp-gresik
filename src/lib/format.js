@@ -12,6 +12,16 @@ const JAKARTA_TIME_FORMATTER = new Intl.DateTimeFormat('id-ID', {
   hourCycle: 'h23',
 });
 
+const JAKARTA_LONG_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('id-ID', {
+  timeZone: 'Asia/Jakarta',
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+});
+
 export function formatNumber(value) {
   if (value === null || value === undefined || value === '') return '0';
   const num = Number(value);
@@ -115,5 +125,21 @@ export function formatDateTime(value) {
   const timePart = formatTime(value);
   if (datePart === '-' || timePart === '-') return '-';
   return `${datePart} ${timePart}`;
+}
+
+export function formatLongDateTime(value) {
+  if (value === null || value === undefined || value === '') return '-';
+
+  const dateObj = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(dateObj.getTime())) return '-';
+
+  const parts = JAKARTA_LONG_DATE_TIME_FORMATTER.formatToParts(dateObj);
+  const day = parts.find((p) => p.type === 'day')?.value || '01';
+  const month = parts.find((p) => p.type === 'month')?.value || '';
+  const year = parts.find((p) => p.type === 'year')?.value || '1970';
+  const rawHour = parts.find((p) => p.type === 'hour')?.value || '00';
+  const hour = rawHour === '24' ? '00' : rawHour.padStart(2, '0');
+  const minute = (parts.find((p) => p.type === 'minute')?.value || '00').padStart(2, '0');
+  return `${day} ${month} ${year} ${hour}:${minute}`;
 }
 

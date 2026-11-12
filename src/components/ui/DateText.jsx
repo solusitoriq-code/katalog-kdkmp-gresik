@@ -1,4 +1,4 @@
-import { formatDate, formatTime, formatDateTime } from '../../lib/format';
+import { formatDate, formatTime, formatDateTime, formatLongDateTime } from '../../lib/format';
 
 function formatDateValue(value, mode) {
   if (mode === 'time') {
@@ -6,6 +6,9 @@ function formatDateValue(value, mode) {
   }
   if (mode === 'datetime') {
     return formatDateTime(value);
+  }
+  if (mode === 'longDateTime' || mode === 'longDatetime' || mode === 'order') {
+    return formatLongDateTime(value);
   }
   return formatDate(value);
 }
